@@ -659,27 +659,29 @@ new Chart(
                     yAxisID: "yBukaan"
                 },
 
-                {
-                    label: "Realisasi Bukaan",
+               {
+    label: "Realisasi Bukaan",
 
-                    data: data.map(row =>
-                        row.realisasiBukaan
-                    ),
+    data: data.map(row =>
+        row.realisasiBukaan
+    ),
 
-                    type: "line",
+    type: "line",
 
-                    borderColor: "#ff3157",
+    borderColor: "#ff3157",
 
-                    backgroundColor: "#ff3157",
+    backgroundColor: "#ff3157",
 
-                    borderWidth: 2,
+    borderWidth: 4,
 
-                    pointRadius: 4,
+    pointRadius: 5,
 
-                    pointHoverRadius: 6,
+    pointHoverRadius: 7,
 
-                    yAxisID: "yBukaan"
-                }
+    order: 0,
+
+    yAxisID: "yBukaan"
+},
 
             ]
 
