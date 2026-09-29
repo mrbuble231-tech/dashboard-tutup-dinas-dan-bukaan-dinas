@@ -1086,3 +1086,23 @@ tfoot td {
             1fr;
     }
 }
+.dashboard-credit {
+    text-align: center;
+    line-height: 1.6;
+}
+
+.dashboard-credit div {
+    color: #8eabb9;
+    font-size: 10px;
+}
+
+.dashboard-credit strong {
+    color: #25d7ff;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 8px rgba(37, 215, 255, 0.65),
+        0 0 18px rgba(37, 215, 255, 0.35);
+}
