@@ -599,7 +599,6 @@ totalRow.innerHTML = `
 /* =========================================================
    TREND CHART
 ========================================================= */
-
 const trendCanvas =
     document.getElementById("trendChart");
 
@@ -621,62 +620,65 @@ new Chart(
                 {
                     label: "Tutup Dinas (Terima)",
 
-                    data: data.map(
-                        row => row.terimaTutup
+                    data: data.map(row =>
+                        row.terimaTutup
                     ),
 
-                    backgroundColor:
-                        "#16a9ff",
+                    backgroundColor: "#16a9ff",
 
-                    borderRadius: 3
+                    borderRadius: 3,
+
+                    yAxisID: "y"
                 },
 
                 {
                     label: "Realisasi Bayar",
 
-                    data: data.map(
-                        row => row.realisasiBayar
+                    data: data.map(row =>
+                        row.realisasiBayar
                     ),
 
-                    backgroundColor:
-                        "#00dc86",
+                    backgroundColor: "#00dc86",
 
-                    borderRadius: 3
+                    borderRadius: 3,
+
+                    yAxisID: "y"
                 },
 
                 {
                     label: "Bukaan Kembali (Terima)",
 
-                    data: data.map(
-                        row => row.terimaBukaan
+                    data: data.map(row =>
+                        row.terimaBukaan
                     ),
 
-                    backgroundColor:
-                        "#ff9f1c",
+                    backgroundColor: "#ff9f1c",
 
-                    borderRadius: 3
+                    borderRadius: 3,
+
+                    yAxisID: "yBukaan"
                 },
 
                 {
                     label: "Realisasi Bukaan",
 
-                    data: data.map(
-                        row => row.realisasiBukaan
+                    data: data.map(row =>
+                        row.realisasiBukaan
                     ),
 
                     type: "line",
 
-                    borderColor:
-                        "#ff3157",
+                    borderColor: "#ff3157",
 
-                    backgroundColor:
-                        "#ff3157",
+                    backgroundColor: "#ff3157",
 
                     borderWidth: 2,
 
                     pointRadius: 4,
 
-                    pointHoverRadius: 6
+                    pointHoverRadius: 6,
+
+                    yAxisID: "yBukaan"
                 }
 
             ]
@@ -713,6 +715,14 @@ new Chart(
 
                     beginAtZero: true,
 
+                    position: "left",
+
+                    title: {
+                        display: true,
+                        text: "Tutup Dinas",
+                        color: "#16a9ff"
+                    },
+
                     ticks: {
                         color: "#b9d5e3"
                     },
@@ -720,6 +730,28 @@ new Chart(
                     grid: {
                         color:
                             "rgba(50,100,125,0.25)"
+                    }
+
+                },
+
+                yBukaan: {
+
+                    beginAtZero: true,
+
+                    position: "right",
+
+                    title: {
+                        display: true,
+                        text: "Bukaan Kembali",
+                        color: "#ff9f1c"
+                    },
+
+                    ticks: {
+                        color: "#ff9f1c"
+                    },
+
+                    grid: {
+                        drawOnChartArea: false
                     }
 
                 }
@@ -748,6 +780,7 @@ new Chart(
 
     }
 );
+
 
 
 /* =========================================================
