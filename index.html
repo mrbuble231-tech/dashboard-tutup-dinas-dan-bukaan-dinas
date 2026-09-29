@@ -1,1 +1,393 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Dashboard Tutup Dinas & Bukaan Kembali TD</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="top-header">
+
+        <div class="brand">
+            <div class="brand-logo">💧</div>
+
+            <div>
+                <div class="brand-name">PDAM</div>
+                <div class="brand-city">SURABAYA</div>
+            </div>
+        </div>
+
+        <div class="header-title">
+            <h1>
+                DASHBOARD TUTUP DINAS &
+                BUKAAN KEMBALI TUTUP DINAS
+            </h1>
+
+            <p>
+                LAPORAN REKAPITULASI JUMLAH PELAKSANAAN
+                TUTUP DINAS DAN BUKAAN KEMBALI TUTUP DINAS
+            </p>
+
+            <h2>TAHUN 2026</h2>
+        </div>
+
+        <div class="header-clock">
+            <div>📅 Senin, 29 September 2026</div>
+            <strong id="clock">13:24:56 WIB</strong>
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN DASHBOARD
+    ========================== -->
+
+    <main class="dashboard">
+
+
+        <!-- =====================
+             KPI CARDS
+        ====================== -->
+
+        <section class="kpi-grid">
+
+            <div class="kpi-card blue">
+
+                <div class="kpi-icon">▣</div>
+
+                <div class="kpi-title">
+                    TUTUPAN DINAS (TERIMA)
+                </div>
+
+                <div class="kpi-value">
+                    29.988
+                </div>
+
+                <div class="kpi-info">
+                    Total Terima Jan - Aug 2026
+                </div>
+
+            </div>
+
+
+            <div class="kpi-card green">
+
+                <div class="kpi-icon">▣</div>
+
+                <div class="kpi-title">
+                    REALISASI BAYAR
+                </div>
+
+                <div class="kpi-value">
+                    27.369
+                </div>
+
+                <div class="kpi-percent">
+                    91,26 %
+                </div>
+
+                <div class="kpi-info">
+                    Dari Total Terima
+                </div>
+
+            </div>
+
+
+            <div class="kpi-card orange">
+
+                <div class="kpi-icon">↻</div>
+
+                <div class="kpi-title">
+                    BUKAAN KEMBALI TD (TERIMA)
+                </div>
+
+                <div class="kpi-value">
+                    2.995
+                </div>
+
+                <div class="kpi-info">
+                    Total Terima Jan - Aug 2026
+                </div>
+
+            </div>
+
+
+            <div class="kpi-card red">
+
+                <div class="kpi-icon">↻</div>
+
+                <div class="kpi-title">
+                    REALISASI BUKAAN
+                </div>
+
+                <div class="kpi-value">
+                    2.995
+                </div>
+
+                <div class="kpi-percent">
+                    100,00 %
+                </div>
+
+                <div class="kpi-info">
+                    Dari Total Terima
+                </div>
+
+            </div>
+
+
+            <div class="kpi-card purple">
+
+                <div class="kpi-icon">▤</div>
+
+                <div class="kpi-title">
+                    TOTAL REKAP BAYAR
+                </div>
+
+                <div class="kpi-value">
+                    27.369
+                </div>
+
+                <div class="kpi-info">
+                    Jan - Aug 2026
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================
+             CONTENT ROW
+        ====================== -->
+
+        <section class="content-grid">
+
+
+            <!-- TREND -->
+
+            <div class="panel trend-panel">
+
+                <div class="panel-title">
+                    TREND TUTUP DINAS & BUKAAN KEMBALI
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <!-- REKAP BAYAR -->
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    REKAP BAYAR
+                    <span>(Jan - Aug 2026)</span>
+                </div>
+
+                <div class="payment-grid">
+
+                    <div class="payment-card green">
+                        <div class="payment-icon">✓</div>
+                        <div class="payment-name">
+                            LUNAS
+                        </div>
+                        <div class="payment-value">
+                            29.005
+                        </div>
+                    </div>
+
+
+                    <div class="payment-card blue">
+                        <div class="payment-icon">▤</div>
+                        <div class="payment-name">
+                            REK. & BUKAAN
+                        </div>
+                        <div class="payment-value">
+                            31.292
+                        </div>
+                    </div>
+
+
+                    <div class="payment-card orange">
+                        <div class="payment-icon">▤</div>
+                        <div class="payment-name">
+                            REK.
+                        </div>
+                        <div class="payment-value">
+                            -
+                        </div>
+                    </div>
+
+
+                    <div class="payment-card red">
+                        <div class="payment-icon">↻</div>
+                        <div class="payment-name">
+                            BUKAAN
+                        </div>
+                        <div class="payment-value">
+                            -
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- REALISASI -->
+
+            <div class="panel category-panel">
+
+                <div class="panel-title">
+                    REALISASI PER KATEGORI
+                    <span>(Jan - Aug 2026)</span>
+                </div>
+
+                <div class="category-chart">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================
+             DETAIL TABLE
+        ====================== -->
+
+        <section class="panel table-panel">
+
+            <div class="panel-title">
+                DETAIL DATA PER BULAN
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th rowspan="2">No</th>
+                            <th rowspan="2">Bulan</th>
+
+                            <th colspan="3" class="group-blue">
+                                Tutup Dinas / Tetap
+                            </th>
+
+                            <th colspan="3" class="group-green">
+                                Bukaan Kembali TD
+                            </th>
+
+                            <th colspan="4" class="group-orange">
+                                BAYAR
+                            </th>
+
+                            <th colspan="11" class="group-purple">
+                                Realisasi
+                            </th>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Terima<br>(a)</th>
+                            <th>Realisasi Bayar<br>(b)</th>
+                            <th>%<br>(c=b/a)</th>
+
+                            <th>Terima<br>(d)</th>
+                            <th>Realisasi<br>(e)</th>
+                            <th>%<br>(f=e/d)</th>
+
+                            <th>Lunas</th>
+                            <th>Rek. &<br>Bukaan</th>
+                            <th>Rek.</th>
+                            <th>Bukaan</th>
+
+                            <th>AM</th>
+                            <th>PPP</th>
+                            <th>BPD</th>
+                            <th>TB</th>
+                            <th>PK</th>
+                            <th>PGL</th>
+                            <th>RBK</th>
+                            <th>MTA</th>
+                            <th>Batal</th>
+                            <th>EXP</th>
+                            <th>Penangguhan</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="dataTable">
+
+                        <!-- Data akan diisi melalui JavaScript -->
+
+                    </tbody>
+
+
+                    <tfoot id="totalRow">
+
+                        <!-- Total akan diisi JavaScript -->
+
+                    </tfoot>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="dashboard-footer">
+
+        <div>
+            🗄️ Sumber Data :
+            Laporan Rekapitulasi Tutup Dinas dan
+            Bukaan Kembali Tutup Dinas
+        </div>
+
+        <div>
+            🔄 Update Terakhir :
+            <strong id="lastUpdate">
+                29 September 2026 13:24:56 WIB
+            </strong>
+
+            |
+            Data Realtime dari Google Sheets
+        </div>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
