@@ -10,218 +10,113 @@
    Januari - Agustus 2026
 ========================================================= */
 
-const data = [
-    {
-        bulan: "Januari 2026",
-        terimaTutup: 4238,
-        realisasiBayar: 3550,
-        terimaBukaan: 433,
-        realisasiBukaan: 433,
+const SHEET_URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vRr8R_L7SK3go995gTrx9UZUJMtUeyrCq1SLSrtYlN9HlZeHKFUODicrD_9cyr8H57EppczJ3ID7k4-/pub?gid=269519834&single=true&output=csv";
 
-        lunas: 0,
-        rekBukaan: 3550,
-        rek: 0,
-        bukaan: 0,
+async function loadSheetData() {
+    const response = await fetch(SHEET_URL);
 
-        AM: 303,
-        PPP: 232,
-        BPD: 0,
-        TB: 31,
-        PK: 16,
-        PGL: 103,
-        RBK: 3,
-        MTA: 0,
-        Batal: 0,
-        EXP: 0,
-        Penangguhan: 0
-    },
-
-    {
-        bulan: "Februari 2026",
-        terimaTutup: 4133,
-        realisasiBayar: 3476,
-        terimaBukaan: 372,
-        realisasiBukaan: 372,
-
-        lunas: 0,
-        rekBukaan: 3476,
-        rek: 0,
-        bukaan: 0,
-
-        AM: 275,
-        PPP: 211,
-        BPD: 0,
-        TB: 38,
-        PK: 14,
-        PGL: 116,
-        RBK: 3,
-        MTA: 0,
-        Batal: 0,
-        EXP: 0,
-        Penangguhan: 0
-    },
-
-    {
-        bulan: "Maret 2026",
-        terimaTutup: 4529,
-        realisasiBayar: 3747,
-        terimaBukaan: 318,
-        realisasiBukaan: 318,
-
-        lunas: 0,
-        rekBukaan: 3747,
-        rek: 0,
-        bukaan: 0,
-
-        AM: 287,
-        PPP: 239,
-        BPD: 0,
-        TB: 60,
-        PK: 28,
-        PGL: 167,
-        RBK: 1,
-        MTA: 0,
-        Batal: 0,
-        EXP: 0,
-        Penangguhan: 0
-    },
-
-    {
-        bulan: "April 2026",
-        terimaTutup: 4434,
-        realisasiBayar: 3809,
-        terimaBukaan: 519,
-        realisasiBukaan: 519,
-
-        lunas: 0,
-        rekBukaan: 3809,
-        rek: 0,
-        bukaan: 0,
-
-        AM: 342,
-        PPP: 214,
-        BPD: 0,
-        TB: 11,
-        PK: 6,
-        PGL: 21,
-        RBK: 0,
-        MTA: 0,
-        Batal: 0,
-        EXP: 0,
-        Penangguhan: 31
-    },
-
-    {
-        bulan: "Mei 2026",
-        terimaTutup: 3696,
-        realisasiBayar: 3078,
-        terimaBukaan: 421,
-        realisasiBukaan: 421,
-
-        lunas: 0,
-        rekBukaan: 3078,
-        rek: 0,
-        bukaan: 0,
-
-        AM: 312,
-        PPP: 225,
-        BPD: 0,
-        TB: 14,
-        PK: 6,
-        PGL: 51,
-        RBK: 0,
-        MTA: 0,
-        Batal: 0,
-        EXP: 0,
-        Penangguhan: 14
-    },
-
-    {
-        bulan: "Juni 2026",
-        terimaTutup: 4249,
-        realisasiBayar: 4111,
-        terimaBukaan: 489,
-        realisasiBukaan: 489,
-
-        lunas: 0,
-        rekBukaan: 3996,
-        rek: 0,
-        bukaan: 0,
-
-        AM: 385,
-        PPP: 237,
-        BPD: 0,
-        TB: 60,
-        PK: 22,
-        PGL: 112,
-        RBK: 6,
-        MTA: 0,
-        Batal: 0,
-        EXP: 0,
-        Penangguhan: 31
-    },
-
-    {
-        bulan: "Juli 2026",
-        terimaTutup: 4867,
-        realisasiBayar: 4440,
-        terimaBukaan: 546,
-        realisasiBukaan: 546,
-
-        lunas: 0,
-        rekBukaan: 3792,
-        rek: 0,
-        bukaan: 0,
-
-        AM: 450,
-        PPP: 368,
-        BPD: 0,
-        TB: 148,
-        PK: 12,
-        PGL: 31,
-        RBK: 29,
-        MTA: 0,
-        Batal: 0,
-        EXP: 0,
-        Penangguhan: 37
-    },
-
-    {
-        bulan: "Agustus 2026",
-        terimaTutup: 4428,
-        realisasiBayar: 3785,
-        terimaBukaan: 432,
-        realisasiBukaan: 432,
-
-        lunas: 0,
-        rekBukaan: 3222,
-        rek: 0,
-        bukaan: 0,
-
-        AM: 434,
-        PPP: 255,
-        BPD: 0,
-        TB: 116,
-        PK: 31,
-        PGL: 76,
-        RBK: 19,
-        MTA: 0,
-        Batal: 0,
-        EXP: 198,
-        Penangguhan: 77
+    if (!response.ok) {
+        throw new Error("Gagal mengambil data Google Sheets");
     }
-];
+
+    const csv = await response.text();
+    function parseNumber(value) {
+    if (!value) return 0;
+
+    const text = String(value)
+        .trim()
+        .replace(/"/g, "");
+
+    if (/^\d{1,3}(\.\d{3})+$/.test(text)) {
+        return Number(text.replace(/\./g, ""));
+    }
+
+    return Number(text.replace(/,/g, "")) || 0;
+}
+
+    function parseCSVLine(line) {
+    const result = [];
+    let current = "";
+    let insideQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+
+        if (char === '"') {
+            insideQuotes = !insideQuotes;
+        } else if (char === "," && !insideQuotes) {
+            result.push(current.trim());
+            current = "";
+        } else {
+            current += char;
+        }
+    }
+
+    result.push(current.trim());
+
+    return result;
+}
+
+const rows = csv
+    .trim()
+    .split(/\r?\n/)
+    .map(parseCSVLine);
+
+    const headers = rows[0].map(header =>
+        header.trim().toLowerCase()
+    );
+
+    console.log("HEADER GOOGLE SHEETS:", headers);
+
+    // DATA SEMENTARA
+    // Kita cek struktur kolom Sheet dulu sebelum mapping final.
+    return rows
+ .filter(row => {
+    const no = String(row[0] || "")
+        .replace(/\ufeff/g, "")
+        .trim();
+
+    return /^\d+$/.test(no);
+})
+    .map(row => ({
+        bulan: row[1],
+
+        terimaTutup: parseNumber(row[2]),
+        realisasiBayar: parseNumber(row[3]),
+
+        terimaBukaan: parseNumber(row[5]),
+        realisasiBukaan: parseNumber(row[6]),
+
+        lunas: parseNumber(row[8]),
+        rekBukaan: parseNumber(row[9]),
+        rek: parseNumber(row[10]),
+        bukaan: parseNumber(row[11]),
+
+        AM: parseNumber(row[12]),
+        PPP: parseNumber(row[13]),
+        BPD: parseNumber(row[14]),
+        TB: parseNumber(row[15]),
+        PK: parseNumber(row[16]),
+        PGL: parseNumber(row[17]),
+        RBK: parseNumber(row[18]),
+        MTA: parseNumber(row[19]),
+        Batal: parseNumber(row[20]),
+        EXP: parseNumber(row[21]),
+        Penangguhan: parseNumber(row[22])
+    }));
+}
+
+const data = await loadSheetData();
+
+console.log("DATA GOOGLE SHEETS:", data);
 
 
 /* =========================================================
    DATA BULAN KOSONG
 ========================================================= */
 
-const bulanKosong = [
-    "September 2026",
-    "Oktober 2026",
-    "November 2026"
-];
+
 
 
 /* =========================================================
@@ -342,6 +237,8 @@ kategori.forEach(kategoriNama => {
 /* =========================================================
    UPDATE KPI
 ========================================================= */
+document.getElementById("lunasValue").textContent =
+    formatNumber(total.realisasiBayar);
 
 document.querySelector(
     ".kpi-card.blue .kpi-value"
@@ -389,7 +286,10 @@ document.querySelector(
     ".kpi-card.purple .kpi-value"
 ).textContent =
     formatNumber(total.realisasiBayar);
-
+document.getElementById(
+    "rekBukaanValue"
+).textContent =
+    formatNumber(total.rekBukaan);
 
 /* =========================================================
    TABEL
@@ -474,47 +374,7 @@ data.forEach((row, index) => {
    BULAN YANG BELUM ADA DATA
 ========================================================= */
 
-bulanKosong.forEach((bulan, index) => {
 
-    const tr =
-        document.createElement("tr");
-
-    tr.innerHTML = `
-
-        <td>${data.length + index + 1}</td>
-
-        <td>${bulan}</td>
-
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-
-    `;
-
-    tableBody.appendChild(tr);
-
-});
 
 
 /* =========================================================
