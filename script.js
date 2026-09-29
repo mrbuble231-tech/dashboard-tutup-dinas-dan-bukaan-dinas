@@ -733,28 +733,37 @@ new Chart(
                     }
 
                 },
+yBukaan: {
 
-                yBukaan: {
+    beginAtZero: true,
 
-                    beginAtZero: true,
+    min: 0,
 
-                    position: "right",
+    max: 600,
 
-                    title: {
-                        display: true,
-                        text: "Bukaan Kembali",
-                        color: "#ff9f1c"
-                    },
+    position: "right",
 
-                    ticks: {
-                        color: "#ff9f1c"
-                    },
+    title: {
+        display: true,
+        text: "Bukaan Kembali",
+        color: "#ff9f1c",
 
-                    grid: {
-                        drawOnChartArea: false
-                    }
+        font: {
+            size: 11,
+            weight: "bold"
+        }
+    },
 
-                }
+    ticks: {
+        color: "#ff9f1c",
+        stepSize: 100
+    },
+
+    grid: {
+        drawOnChartArea: false
+    }
+
+},
 
             },
 
