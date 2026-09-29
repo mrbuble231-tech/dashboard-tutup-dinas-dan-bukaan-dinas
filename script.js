@@ -771,19 +771,59 @@ yBukaan: {
 
             plugins: {
 
-                legend: {
+               labels: {
 
-                    labels: {
+    color: "#dceff7",
 
-                        color: "#dceff7",
+    font: {
+        size: 10,
+        weight: "bold"
+    },
 
-                        boxWidth: 16,
+    boxWidth: 16,
 
-                        padding: 12
+    padding: 8,
 
-                    }
+    generateLabels(chart) {
 
-                }
+        const labels =
+            Chart
+                .defaults
+                .plugins
+                .legend
+                .labels
+                .generateLabels(chart);
+
+        const data =
+            chart.data.datasets[0].data;
+
+        const total =
+            data.reduce(
+                (sum, value) =>
+                    sum + Number(value || 0),
+                0
+            );
+
+        return labels.map(item => {
+
+            const nilai =
+                Number(data[item.index] || 0);
+
+            const persen =
+                total > 0
+                    ? (nilai / total * 100).toFixed(2)
+                    : "0.00";
+
+            item.text =
+                `${item.text}  ${persen}%`;
+
+            return item;
+
+        });
+
+    }
+
+}
 
             }
 
@@ -800,6 +840,81 @@ yBukaan: {
 
 const categoryCanvas =
     document.getElementById("categoryChart");
+
+
+const totalRealisasiKategori =
+    Object.values(totalKategori)
+        .reduce(
+            (total, nilai) =>
+                total + Number(nilai || 0),
+            0
+        );
+
+
+const donutCenterText = {
+
+    id: "donutCenterText",
+
+    afterDraw(chart) {
+
+        const {
+            ctx
+        } = chart;
+
+        const meta =
+            chart.getDatasetMeta(0);
+
+        if (!meta.data.length) return;
+
+        const x =
+            meta.data[0].x;
+
+        const y =
+            meta.data[0].y;
+
+        ctx.save();
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        ctx.font =
+            "900 22px Arial";
+
+        ctx.fillStyle =
+            "#ffffff";
+
+        ctx.shadowColor =
+            "rgba(37, 215, 255, 0.45)";
+
+        ctx.shadowBlur = 10;
+
+        ctx.fillText(
+            formatNumber(
+                totalRealisasiKategori
+            ),
+            x,
+            y - 5
+        );
+
+        ctx.shadowBlur = 0;
+
+        ctx.font =
+            "700 8px Arial";
+
+        ctx.fillStyle =
+            "#8eabb9";
+
+        ctx.fillText(
+            "REALISASI KATEGORI",
+            x,
+            y + 17
+        );
+
+        ctx.restore();
+
+    }
+
+};
 
 
 new Chart(
@@ -849,12 +964,55 @@ new Chart(
                         color: "#dceff7",
 
                         font: {
-                            size: 9
+
+                            size: 10,
+
+                            weight: "bold"
+
                         },
 
                         boxWidth: 10,
 
-                        padding: 5
+                        padding: 6
+
+                    }
+
+                },
+
+                tooltip: {
+
+                    callbacks: {
+
+                        label(context) {
+
+                            const nilai =
+                                Number(
+                                    context.raw || 0
+                                );
+
+                            const total =
+                                totalRealisasiKategori;
+
+                            const persen =
+                                total > 0
+                                    ? (
+                                        nilai /
+                                        total *
+                                        100
+                                    ).toFixed(2)
+                                    : 0;
+
+                            return (
+                                " " +
+                                context.label +
+                                ": " +
+                                formatNumber(nilai) +
+                                " (" +
+                                persen +
+                                "%)"
+                            );
+
+                        }
 
                     }
 
@@ -862,11 +1020,14 @@ new Chart(
 
             }
 
-        }
+        },
+
+        plugins: [
+            donutCenterText
+        ]
 
     }
 );
-
 
 /* =========================================================
    JAM REALTIME
@@ -984,3 +1145,51 @@ console.log(
     "Total Realisasi Bukaan:",
     total.realisasiBukaan
 );
+/* =========================================
+   WELCOME SCREEN - SESSION
+========================================= */
+
+/* =========================================
+   WELCOME SCREEN - SESSION
+========================================= */
+
+(function () {
+
+    const welcomeScreen =
+        document.getElementById("welcomeScreen");
+
+    if (!welcomeScreen) return;
+
+
+    // Jika sesi ini sudah pernah menampilkan Welcome,
+    // langsung sembunyikan
+    if (
+        sessionStorage.getItem("welcomeShown") === "true"
+    ) {
+
+        welcomeScreen.style.opacity = "0";
+        welcomeScreen.style.visibility = "hidden";
+        welcomeScreen.style.pointerEvents = "none";
+
+        return;
+
+    }
+
+
+    // Tandai Welcome sudah tampil
+    sessionStorage.setItem(
+        "welcomeShown",
+        "true"
+    );
+
+
+    // Tampilkan selama 8 detik
+    setTimeout(function () {
+
+        welcomeScreen.style.opacity = "0";
+        welcomeScreen.style.visibility = "hidden";
+        welcomeScreen.style.pointerEvents = "none";
+
+    }, 8000);
+
+})();

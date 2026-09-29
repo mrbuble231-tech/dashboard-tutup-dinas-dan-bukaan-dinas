@@ -1106,3 +1106,133 @@ tfoot td {
         0 0 8px rgba(37, 215, 255, 0.65),
         0 0 18px rgba(37, 215, 255, 0.35);
 }
+/* =========================================
+   WELCOME SCREEN - RHINOCEROS
+========================================= */
+
+.welcome-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle at center,
+            rgba(0, 110, 160, 0.18),
+            transparent 45%),
+        linear-gradient(135deg, #020810, #06131f, #010509);
+
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+.welcome-screen.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.welcome-content {
+    text-align: center;
+    padding: 40px;
+}
+
+.welcome-brand {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    color: #25d7ff;
+
+    margin-bottom: 35px;
+
+    text-shadow:
+        0 0 8px rgba(37, 215, 255, 0.8),
+        0 0 25px rgba(37, 215, 255, 0.5);
+}
+
+.welcome-small {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #8eabb9;
+
+    margin-bottom: 15px;
+}
+
+.welcome-content h1 {
+    margin: 0;
+
+    font-size: clamp(24px, 4vw, 48px);
+    line-height: 1.25;
+
+    font-weight: 900;
+    color: #ffffff;
+
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.welcome-year {
+    margin-top: 20px;
+
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 5px;
+
+    color: #25d7ff;
+}
+
+.welcome-loading {
+    margin-top: 40px;
+
+    font-size: 11px;
+    letter-spacing: 3px;
+
+    color: #8eabb9;
+}
+
+.welcome-line {
+    width: 220px;
+    height: 3px;
+
+    margin: 12px auto 20px;
+
+    background: #25d7ff;
+
+    box-shadow:
+        0 0 8px rgba(37, 215, 255, 0.8),
+        0 0 18px rgba(37, 215, 255, 0.5);
+
+    animation: welcomePulse 1.2s infinite alternate;
+}
+
+.welcome-credit {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 4px;
+
+    color: #25d7ff;
+
+    text-shadow:
+        0 0 8px rgba(37, 215, 255, 0.7),
+        0 0 18px rgba(37, 215, 255, 0.4);
+}
+
+@keyframes welcomePulse {
+    from {
+        width: 120px;
+        opacity: 0.5;
+    }
+
+    to {
+        width: 280px;
+        opacity: 1;
+    }
+}
