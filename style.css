@@ -1254,3 +1254,21 @@ tfoot td {
         opacity: 1;
     }
 }
+.version-badge {
+    margin-top: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #25d7ff;
+    text-align: center;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+.version-footer {
+    display: inline-block;
+    margin-top: 5px;
+    color: #25d7ff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
