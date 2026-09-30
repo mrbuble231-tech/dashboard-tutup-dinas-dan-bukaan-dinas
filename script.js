@@ -1017,6 +1017,10 @@ console.log(
 
     const welcomeScreen =
         document.getElementById("welcomeScreen");
+const welcomeAudio =
+    document.getElementById("welcomeAudio");
+    const welcomeLine =
+        document.querySelector(".welcome-line");
 
     if (!welcomeScreen) return;
 
@@ -1043,13 +1047,80 @@ console.log(
     );
 
 
-    // Tampilkan selama 8 detik
-    setTimeout(function () {
+    // ================================
+    // PROGRESS LOADING 0% → 100%
+    // ================================
 
-        welcomeScreen.style.opacity = "0";
-        welcomeScreen.style.visibility = "hidden";
-        welcomeScreen.style.pointerEvents = "none";
+    let progress = 0;
 
-    }, 8000);
+    const progressTimer = setInterval(function () {
+
+        progress++;
+
+        if (welcomeLine) {
+            welcomeLine.style.setProperty(
+                "--welcome-progress",
+                progress + "%"
+            );
+        }
+
+        if (progress >= 100) {
+
+    clearInterval(progressTimer);
+
+    if (enterButton) {
+        enterButton.classList.add("show");
+    }
+
+}
+
+    }, 80);
+const enterButton =
+    document.getElementById("enterCommandCenter");
+
+function hideWelcome() {
+
+    welcomeScreen.style.opacity = "0";
+    welcomeScreen.style.visibility = "hidden";
+    welcomeScreen.style.pointerEvents = "none";
+
+}
+
+if (enterButton) {
+
+    enterButton.addEventListener("click", function () {
+
+        enterButton.disabled = true;
+
+        if (welcomeAudio) {
+
+            welcomeAudio.currentTime = 0;
+
+            welcomeAudio.play().then(function () {
+
+                welcomeAudio.onended = function () {
+                    hideWelcome();
+                };
+
+            }).catch(function (error) {
+
+                console.log(
+                    "Welcome audio tidak dapat diputar:",
+                    error
+                );
+
+                hideWelcome();
+
+            });
+
+        } else {
+
+            hideWelcome();
+
+        }
+
+    });
+
+}
 
 })();
