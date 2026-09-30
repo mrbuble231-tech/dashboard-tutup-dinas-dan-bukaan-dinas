@@ -83,7 +83,36 @@
             <div>📅 Senin, 29 September 2026</div>
             <strong id="clock">13:24:56 WIB</strong>
         </div>
+<div class="command-menu">
 
+    <button
+        class="menu-button"
+        id="menuButton"
+        type="button"
+    >
+        🏠 HOME ▼
+    </button>
+
+    <div
+        class="menu-dropdown"
+        id="menuDropdown"
+    >
+
+        <a href="index.html" class="active">
+            🟦 Tutup Dinas & Bukaan Kembali
+        </a>
+
+        <a href="sweeping.html">
+            🟨 Sweeping
+        </a>
+
+        <a href="#" onclick="return false;">
+            🟥 Meter Hilang
+        </a>
+
+    </div>
+
+</div>
     </header>
 
 
@@ -429,7 +458,46 @@
     </span>
 </div>
     <!-- JavaScript -->
-    <script type="module" src="script.js"></script>
+    <!-- JavaScript -->
+<script type="module" src="script.js"></script>
+
+<script>
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const menuDropdown =
+        document.getElementById("menuDropdown");
+
+    if (menuButton && menuDropdown) {
+
+        menuButton.addEventListener(
+            "click",
+            function () {
+
+                menuDropdown.classList.toggle("show");
+
+            }
+        );
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    !event.target.closest(".command-menu")
+                ) {
+
+                    menuDropdown.classList.remove("show");
+
+                }
+
+            }
+        );
+
+    }
+
+</script>
 
 </body>
 </html>

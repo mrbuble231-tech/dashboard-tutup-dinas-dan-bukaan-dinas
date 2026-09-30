@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RHINOCEROS — Dashboard Sweeping 2026</title>
+
+    <link rel="stylesheet" href="sweeping.css">
+</head>
+
+<body>
+<header class="dashboard-header">
+
+    <div class="brand">
+        🦏 RHINOCEROS
+    </div>
+
+    <div class="page-title">
+        DASHBOARD SWEEPING 2026
+    </div>
+
+    <div class="command-menu">
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+        >
+            🏠 HOME ▼
+        </button>
+
+        <div
+            class="menu-dropdown"
+            id="menuDropdown"
+        >
+
+            <a href="index.html">
+                🟦 Tutup Dinas & Bukaan Kembali
+            </a>
+
+            <a href="sweeping.html" class="active">
+                🟨 Sweeping
+            </a>
+
+            <a href="#" onclick="return false;">
+                🟥 Meter Hilang
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+    <main class="dashboard-container">
+
+        <!-- KPI UTAMA -->
+        <section class="kpi-grid">
+
+            <div class="kpi-card">
+                <div class="kpi-label">TOTAL</div>
+                <div class="kpi-value" id="totalValue">-</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">TARGET</div>
+                <div class="kpi-value" id="targetValue">-</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">PENCAPAIAN</div>
+                <div class="kpi-value" id="totalAchievement">-</div>
+            </div>
+
+        </section>
+
+
+        <!-- TAMBAHAN PEMAKAIAN AIR -->
+        <section class="kpi-grid">
+
+            <div class="kpi-card">
+                <div class="kpi-label">TAMBAHAN PEMAKAIAN AIR</div>
+                <div class="kpi-value" id="tambahanValue">-</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">TARGET TAMBAHAN AIR</div>
+                <div class="kpi-value" id="targetTambahanValue">-</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">PENCAPAIAN</div>
+                <div class="kpi-value" id="tambahanAchievement">-</div>
+            </div>
+
+        </section>
+
+
+        <!-- KUBIKASI -->
+        <section class="kpi-grid">
+
+            <div class="kpi-card">
+                <div class="kpi-label">KUBIKASI PEMAKAIAN</div>
+                <div class="kpi-value" id="kubikasiValue">-</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">TARGET KUBIKASI</div>
+                <div class="kpi-value" id="targetKubikasiValue">-</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">PENCAPAIAN</div>
+                <div class="kpi-value" id="kubikasiAchievement">-</div>
+            </div>
+
+        </section>
+
+
+        <!-- RINGKASAN HASIL -->
+        <section class="summary-section">
+
+            <h2>RINGKASAN HASIL SWEEPING</h2>
+
+            <div class="summary-grid">
+
+                <div class="summary-card">
+                    <span>Jumlah Pelanggan Bayar</span>
+                    <strong id="pelangganValue">-</strong>
+                </div>
+
+                <div class="summary-card">
+                    <span>Jumlah Kegiatan Penyelidikan</span>
+                    <strong id="kegiatanValue">-</strong>
+                </div>
+
+                <div class="summary-card">
+                    <span>Terbayar</span>
+                    <strong id="terbayarValue">-</strong>
+                </div>
+
+                <div class="summary-card">
+                    <span>Belum Terbayar</span>
+                    <strong id="belumTerbayarValue">-</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TREND -->
+        <section class="chart-section">
+
+            <h2>TREND SWEEPING 2026</h2>
+
+            <div class="chart-container">
+                <canvas id="sweepingTrendChart"></canvas>
+            </div>
+
+        </section>
+        <section class="chart-section">
+
+    <h2>TREND TAMBAHAN PEMAKAIAN AIR</h2>
+
+    <div class="chart-container">
+        <canvas id="tambahanAirTrendChart"></canvas>
+    </div>
+
+</section>
+
+
+<section class="chart-section">
+
+    <h2>TREND PENCAPAIAN TAMBAHAN AIR</h2>
+
+    <div class="chart-container">
+        <canvas id="tambahanAirAchievementChart"></canvas>
+    </div>
+
+</section>
+
+
+<section class="chart-section">
+
+    <h2>TREND KUBIKASI PEMAKAIAN</h2>
+
+    <div class="chart-container">
+        <canvas id="kubikasiTrendChart"></canvas>
+    </div>
+
+</section>
+
+
+<section class="chart-section">
+
+    <h2>TREND PENCAPAIAN KUBIKASI</h2>
+
+    <div class="chart-container">
+        <canvas id="kubikasiAchievementChart"></canvas>
+    </div>
+
+</section>
+
+
+        <!-- DATA BULANAN -->
+        <section class="table-section">
+
+            <h2>DATA BULANAN SWEEPING</h2>
+
+            <div class="table-wrapper">
+
+                <table id="sweepingTable">
+
+                    <thead>
+                        <tr>
+                            <th>Bulan</th>
+                            <th>Pelanggan Bayar</th>
+                            <th>Perbaikan</th>
+                            <th>Denda</th>
+                            <th>Tambahan Air</th>
+                            <th>Target Tambahan</th>
+                            <th>Total</th>
+                            <th>Target</th>
+                            <th>Kurang</th>
+                            <th>Lebih</th>
+                            <th>%</th>
+                            <th>Kegiatan</th>
+                            <th>Terbayar</th>
+                            <th>Belum Terbayar</th>
+                            <th>Kubikasi</th>
+                            <th>Target Kubikasi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="sweepingTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        🦏 RHINOCEROS • DASHBOARD SWEEPING 2026
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const menuDropdown =
+        document.getElementById("menuDropdown");
+
+    menuButton.addEventListener("click", function () {
+
+        menuDropdown.classList.toggle("show");
+
+    });
+
+    document.addEventListener("click", function (event) {
+
+        if (
+            !event.target.closest(".command-menu")
+        ) {
+
+            menuDropdown.classList.remove("show");
+
+        }
+
+    });
+
+</script>
+
+<script src="sweeping.js"></script>
+
+</body>
+</html>
