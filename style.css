@@ -63,6 +63,8 @@ body {
 
 .top-header {
 
+    position: relative;
+
     min-height: 112px;
 
     display: grid;
@@ -1315,8 +1317,12 @@ tfoot td {
     transform: translateY(-1px);
 }
 .command-menu {
-    position: relative;
-    margin-left: auto;
+    position: absolute;
+
+    right: 18px;
+    bottom: 0;
+
+    z-index: 1000;
 }
 
 .menu-button {
