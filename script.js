@@ -1079,11 +1079,7 @@ const enterButton =
     document.getElementById("enterCommandCenter");
 
 function hideWelcome() {
-
-    welcomeScreen.style.opacity = "0";
-    welcomeScreen.style.visibility = "hidden";
-    welcomeScreen.style.pointerEvents = "none";
-
+    window.location.href = "home.html";
 }
 
 if (enterButton) {
