@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Meter Hilang 2026 RHINOCEROS</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <header class="header">
+
+    <div class="header-left">
+        <h1>DASHBOARD METER HILANG 2026</h1>
+        <p>RHINOCEROS</p>
+    </div>
+<div class="clock-box">
+
+    <div id="jam">00:00:00 WIB</div>
+
+    <div id="tanggal">00 Januari 2026</div>
+
+    <div id="weatherIcon">🌤</div>
+
+    <div id="weatherText">Loading...</div>
+
+    <div id="lastUpdate">
+        🔄 Last Update
+    </div>
+
+</div>
+
+
+    </div>
+</header>
+<div class="status-bar">
+
+    <span id="systemStatus">
+        🟢 SYSTEM NORMAL
+    </span>
+
+    <span id="sheetStatus">
+        📡 Google Sheet Online
+    </span>
+
+    <span id="weatherStatus">
+        🌤 Cuaca Online
+    </span>
+
+    <span id="refreshStatus">
+        🔄 Auto Refresh : 30 Detik
+    </span>
+
+</div>
+<div class="running-news">
+
+ <marquee id="runningText">
+Dashboard Meter Hilang RHINOCEROS
+</marquee>
+
+</div>
+
+    <main class="dashboard">
+
+        <!-- BARIS ATAS -->
+        <section class="top-row">
+
+            <div class="card total-card">
+                <h2>Total Meter Hilang</h2>
+                <div class="big-number">0</div>
+            </div>
+
+            <div class="card map-card">
+                <h2>Peta Zona Surabaya</h2>
+
+              <div class="map-wrapper">
+
+    <img src="imeges/Layout-Zona.jpg" alt="Peta Zona">
+
+ <div id="badgeZ1" class="zona-badge z1">0</div>
+
+<div id="badgeZ2" class="zona-badge z2">0</div>
+
+<div id="badgeZ3" class="zona-badge z3">0</div>
+
+<div id="badgeZ4" class="zona-badge z4">0</div>
+
+<div id="badgeZ5" class="zona-badge z5">0</div>
+</div>
+</div>
+            <div class="card alarm-card">
+                <h2>Alarm Meter Hilang</h2>
+
+             <div class="alarm-box">
+
+    <div id="alarmStatus" class="alarm-status normal">
+    🟢 NORMAL
+</div>
+
+<div id="alarmContainer">
+            </div>
+            </div>
+        </section>
+
+        <!-- GRAFIK -->
+        <section class="card chart-card">
+            <h2>Diagram Batang Meter Hilang Per Zona</h2>
+
+            <canvas id="zonaChart"></canvas>
+        </section>
+
+        <!-- BARIS BAWAH -->
+        <section class="bottom-row">
+
+    <div class="card summary-card">
+        <h2>Ringkasan Per Zona</h2>
+
+        <div class="zona-list">
+
+            <div class="zona-item">
+                <span>Zona 1</span>
+                <strong id="z1">0</strong>
+            </div>
+
+            <div class="zona-item">
+                <span>Zona 2</span>
+                <strong id="z2">0</strong>
+            </div>
+
+            <div class="zona-item">
+                <span>Zona 3</span>
+                <strong id="z3">0</strong>
+            </div>
+
+            <div class="zona-item">
+                <span>Zona 4</span>
+                <strong id="z4">0</strong>
+            </div>
+
+            <div class="zona-item">
+                <span>Zona 5</span>
+                <strong id="z5">0</strong>
+            </div>
+
+        </div>
+    </div>
+  <div class="card trend-card">
+    <h2>📈 Trend Meter Hilang Januari–Juni 2026</h2>
+    <canvas id="trendChart"></canvas>
+</div>
+    <div class="card hotzone-card">
+        <h3>🔥 HOT ZONE</h3>
+
+        <div id="hotZoneNama">-</div>
+
+        <div id="hotZoneJumlah">0 Kasus Aktif</div>
+    </div>
+
+    <div class="card level-card">
+        <h3>🚦 LEVEL ALARM</h3>
+
+        <div id="levelAlarm">
+            🟢 NORMAL
+        </div>
+
+        <div id="levelInfo">
+            0 Kasus Aktif
+        </div>
+    </div>
+<div class="card insight-card">
+    <h3>🏆 BULAN TERTINGGI</h3>
+    <div id="bulanTertinggi">-</div>
+    <div id="nilaiTertinggi">0 Kasus</div>
+</div>
+
+<div class="card insight-card">
+    <h3>📉 BULAN TERENDAH</h3>
+    <div id="bulanTerendah">-</div>
+    <div id="nilaiTerendah">0 Kasus</div>
+</div>
+<div class="card progress-card">
+    <h3>📊 PROGRESS</h3>
+    <canvas id="progressChart"></canvas>
+</div>
+</section>
+
+<section class="latest-section">
+
+    <div class="card latest-card">
+        <h2>Meter Hilang Terbaru</h2>
+
+        <table class="meter-table">
+
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Zona</th>
+                    <th>No Pelanggan</th>
+                    <th>Nama</th>
+                    <th>Telepon</th>
+                    <th>Gol</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="latestTable">
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+    </main>
+<footer class="footer">
+
+🦏 RHINOCEROS COMMAND CENTER
+
+<span>
+Dashboard Meter Hilang 2026 |
+Realtime Monitoring System
+</span>
+
+<span>
+Version 1.2 FINAL
+</span>
+
+<span>
+Auto Refresh : 30 Detik
+</span>
+
+</footer>
+<audio id="alarmSound" preload="auto">
+    <source src="alarm.mp3/alarm.mp3" type="audio/mpeg">
+</audio>
+<div id="emergencyPopup" class="emergency-popup">
+
+    <div class="popup-box">
+
+        <div class="popup-title">
+            🚨 LAPORAN METER HILANG BARU 🚨
+        </div>
+
+        <div id="popupNama" class="popup-nama">
+            -
+        </div>
+
+        <div id="popupZona" class="popup-zona">
+            -
+        </div>
+
+        <div id="popupTanggal" class="popup-tanggal">
+            -
+        </div>
+
+    </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
