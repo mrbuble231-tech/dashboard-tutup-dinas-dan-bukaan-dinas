@@ -285,5 +285,26 @@ Auto Refresh : 30 Detik
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
+    
+<script>
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const menuDropdown =
+        document.getElementById("menuDropdown");
+
+    if (menuButton && menuDropdown) {
+        menuButton.addEventListener("click", function () {
+            menuDropdown.classList.toggle("show");
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!event.target.closest(".command-menu")) {
+                menuDropdown.classList.remove("show");
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
