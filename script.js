@@ -1083,20 +1083,11 @@ function hideWelcome() {
 }
 
 if (enterButton) {
-
     enterButton.addEventListener("click", function () {
-
         enterButton.disabled = true;
-
-        if (welcomeAudio) {
-
-            welcomeAudio.currentTime = 0;
-
-            welcomeAudio.play().then(function () {
-
-                welcomeAudio.onended = function () {
-                    hideWelcome();
-                };
+        window.location.href = "home.html";
+    });
+}
 
             }).catch(function (error) {
 
