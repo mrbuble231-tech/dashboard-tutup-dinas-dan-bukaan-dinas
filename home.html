@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RHINOCEROS COMMAND CENTER</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #eaf6ff;
+      background: radial-gradient(ellipse at top, #10334c, #03101c 70%);
+    }
+    header {
+      padding: 35px 20px 20px;
+      text-align: center;
+      border-bottom: 1px solid #087eaa;
+    }
+    .logo { font-size: 42px; }
+    h1 { margin: 12px 0 8px; letter-spacing: 2px; }
+    header p { color: #65dfff; margin: 0; }
+    main {
+      width: min(1100px, 94%);
+      margin: 35px auto;
+    }
+    .intro { text-align: center; margin-bottom: 28px; }
+    .intro h2 { font-size: clamp(20px, 3vw, 28px); }
+    .intro p { color: #a8c5d8; line-height: 1.6; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+      gap: 20px;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      min-height: 230px;
+      padding: 25px;
+      border: 1px solid #176080;
+      border-radius: 14px;
+      background: rgba(5, 24, 39, .88);
+      box-shadow: 0 8px 28px #0005;
+      transition: transform .2s, border-color .2s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: #53dfff; }
+    .icon { font-size: 36px; }
+    .card h3 { margin: 18px 0 10px; font-size: 19px; }
+    .card p { color: #aac2d3; line-height: 1.6; flex: 1; }
+    .card a {
+      display: block;
+      padding: 12px;
+      border-radius: 8px;
+      color: #031522;
+      background: #55dafa;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+    }
+    .sweeping a { background: #ffd45c; }
+    .meter a { background: #ff687d; }
+    footer {
+      padding: 24px 12px;
+      text-align: center;
+      color: #85a8bc;
+      border-top: 1px solid #173c50;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🦏</div>
+    <h1>RHINOCEROS</h1>
+    <p>COMMAND CENTER • SURABAYA</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h2>PUSAT KENDALI OPERASIONAL</h2>
+      <p>Pilih dashboard untuk membuka sistem monitoring yang diperlukan.</p>
+    </section>
+
+    <section class="cards">
+      <article class="card">
+        <div class="icon">🟦</div>
+        <h3>Tutup Dinas &amp; Bukaan Kembali</h3>
+        <p>Monitoring rekapitulasi, realisasi, dan tren operasional.</p>
+        <a href="./index.html">BUKA DASHBOARD →</a>
+      </article>
+
+      <article class="card sweeping">
+        <div class="icon">🟨</div>
+        <h3>Sweeping</h3>
+        <p>Monitoring kegiatan, target, pembayaran, dan pencapaian sweeping.</p>
+        <a href="./sweeping.html">BUKA DASHBOARD →</a>
+      </article>
+
+      <article class="card meter">
+        <div class="icon">🟥</div>
+        <h3>Meter Hilang</h3>
+        <p>Monitoring zona, kasus, grafik, dan alarm meter hilang.</p>
+        <a href="./meter-hilang/">BUKA DASHBOARD →</a>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    🦏 RHINOCEROS COMMAND CENTER • SURABAYA<br>
+    Sistem Monitoring Operasional
+  </footer>
+</body>
+</html>
