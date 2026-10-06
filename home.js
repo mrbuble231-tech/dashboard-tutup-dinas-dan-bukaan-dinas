@@ -176,6 +176,8 @@ async function loadBreakingNews() {
     if (!response.ok) {
       throw new Error("Gagal mengambil data Breaking News.");
     }
+    setConnectionStatus("news", true);
+    setConnectionStatus("sheet", true);
 
     const csvText = await response.text();
     const rows = parseCSV(csvText);
@@ -183,6 +185,8 @@ async function loadBreakingNews() {
     tampilkanBreakingNews(rows);
 
   } catch (error) {
+    setConnectionStatus("news", false);
+    setConnectionStatus("sheet", false);
     console.error("Breaking News Error:", error);
 
     const container = document.getElementById("breakingNewsList");
@@ -196,10 +200,20 @@ async function loadBreakingNews() {
     }
   }
 }
+function setConnectionStatus(type, online) {
+  const dot = document.getElementById(type + "StatusDot");
+  const text = document.getElementById(type + "StatusText");
 
+  if (!dot || !text) return;
+
+  dot.classList.toggle("offline", !online);
+  text.classList.toggle("offline", !online);
+
+  text.textContent = online ? "ONLINE" : "OFFLINE";
+}
 document.addEventListener("DOMContentLoaded", function () {
   loadBreakingNews();
-
+  setConnectionStatus("dashboard", true);
   // Refresh setiap 60 detik
   setInterval(loadBreakingNews, 60000);
 });
