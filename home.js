@@ -102,48 +102,69 @@ function tampilkanBreakingNews(rows) {
     return;
   }
 
-  container.innerHTML = beritaTerbaru.map(item => {
-    const judul = escapeHTML(item.judul);
-    const kategori = escapeHTML(item.kategori);
-    const zona = escapeHTML(item.zona);
-    const lokasi = escapeHTML(item.lokasi);
-    const ringkasan = escapeHTML(item.ringkasan);
-    const sumber = escapeHTML(item.sumber);
-    const linkSumber = escapeHTML(item["link sumber"]);
+ container.innerHTML = beritaTerbaru.map(item => {
+  const judul = escapeHTML(item.judul);
+  const kategori = escapeHTML(item.kategori);
+  const zona = escapeHTML(item.zona);
+  const lokasi = escapeHTML(item.lokasi);
+  const ringkasan = escapeHTML(item.ringkasan);
+  const tanggal = escapeHTML(item.tanggal);
+  const sumber = escapeHTML(item.sumber);
+  const linkSumber = escapeHTML(item["link sumber"]);
 
-    return `
-      <article class="breaking-item">
+  return `
+    <article class="breaking-item">
 
-        <h3 class="breaking-item-title">
-          ${judul}
-        </h3>
-
-        <div class="breaking-item-meta">
-          ${kategori}
-          ${zona ? ` • ${zona}` : ""}
-          ${lokasi ? ` • ${lokasi}` : ""}
-        </div>
-
-        <p class="breaking-item-summary">
-          ${ringkasan}
-        </p>
+      <div class="breaking-item-top">
+        <span class="breaking-item-badge">
+          🔴 BREAKING
+        </span>
 
         ${
-          linkSumber
-            ? `<a
-                 class="breaking-item-source"
-                 href="${linkSumber}"
-                 target="_blank"
-                 rel="noopener noreferrer"
-               >
-                 Sumber: ${sumber || "Buka berita"}
-               </a>`
+          tanggal
+            ? `<span class="breaking-item-date">${tanggal}</span>`
             : ""
         }
+      </div>
 
-      </article>
-    `;
-  }).join("");
+      <h3 class="breaking-item-title">
+        ${judul}
+      </h3>
+
+      <div class="breaking-item-meta">
+        ${kategori}
+        ${zona ? ` • ${zona}` : ""}
+        ${lokasi ? ` • ${lokasi}` : ""}
+      </div>
+
+      ${
+        ringkasan
+          ? `
+            <p class="breaking-item-summary">
+              ${ringkasan}
+            </p>
+          `
+          : ""
+      }
+
+      ${
+        linkSumber
+          ? `
+            <a
+              class="breaking-item-source"
+              href="${linkSumber}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              🔗 ${sumber || "Buka sumber berita"}
+            </a>
+          `
+          : ""
+      }
+
+    </article>
+  `;
+}).join("");
 }
 
 async function loadBreakingNews() {
