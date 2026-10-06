@@ -1093,9 +1093,9 @@ if (enterButton) {
             });
         }
 
-        setTimeout(function () {
-            window.location.href = "home.html";
-        }, 1500);
+       welcomeAudio.onended = function () {
+    window.location.href = "home.html";
+};
     });
 }
 
