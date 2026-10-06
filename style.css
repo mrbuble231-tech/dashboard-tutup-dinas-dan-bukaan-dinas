@@ -1477,7 +1477,7 @@ tfoot td {
   border-left: 3px solid #ff5252;
 }
 
-.breaking-item-title {
+-title {
   margin: 0 0 6px;
   color: #ffffff;
   font-size: 15px;
@@ -1518,5 +1518,53 @@ tfoot td {
   .breaking-header {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+/* =========================================================
+   BREAKING NEWS - PROFESSIONAL CARD
+   ========================================================= */
+
+.breaking-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.breaking-item-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(255, 40, 60, 0.12);
+  border: 1px solid rgba(255, 70, 90, 0.45);
+  color: #ff5b6e;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+}
+
+.breaking-item-date {
+  color: #7edcff;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.breaking-item-title {
+  margin-top: 0;
+}
+
+@media (max-width: 700px) {
+  .breaking-item-top {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .breaking-item-date {
+    white-space: normal;
   }
 }
