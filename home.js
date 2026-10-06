@@ -2,7 +2,10 @@ const BREAKING_NEWS_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBV3h8Cj871kZWAzP8r0bPKkMODcrURrJrJsAeizKnbm6mn7ThObiaTgOL1EM3jv5ua8Taap3xS9dL/pub?gid=166700684&single=true&output=csv";
 const TUTUP_DINAS_URL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vRr8R_L7SK3go995gTrx9UZUJMtUeyrCq1SLSrtYlN9HlZeHKFUODicrD_9cyr8H57EppczJ3ID7k4-/pub?gid=269519834&single=true&output=csv";
-
+const SWEEPING_URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSl-54_yoSLzhScnnqobxltHP6ix37y2L_ThNjXic5eqGKd0N5Ule916jxr9ISKQtnGR_RkAVXsxW1O/pub?gid=0&single=true&output=csv";
+const METER_HILANG_URL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vTTAgE1S935-2P6AUUddelLeHJBOcUgrzAROMQAzu1AyGhm6SVRncEcuplPqxnvdFKsZDEcIOqyhwbv/pub?gid=1078006060&single=true&output=csv";
 function parseCSV(text) {
   const rows = [];
   let row = [];
@@ -306,6 +309,181 @@ if (lastUpdated) {
     }
   }
 }
+function parseSweepingNumber(value) {
+    if (!value) return 0;
+
+    const text = String(value)
+        .trim()
+        .replace(/\//g, "")
+        .replace(/\./g, "")
+        .replace(/%/g, "")
+        .replace(/,/g, ".");
+
+    return Number(text) || 0;
+}
+
+async function loadSweeping() {
+    try {
+        const response = await fetch(SWEEPING_URL, {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error("Gagal mengambil data Sweeping.");
+        }
+
+        const csvText = await response.text();
+
+        const rows = parseCSV(csvText);
+
+        const data = rows
+            .filter(row => {
+                const bulan = String(row[0] || "").trim();
+
+                return /^(Januari|Februari|Maret|April|Mei|Juni|Juli|Agustus|September|Oktober|November|Desember) 2026$/i.test(bulan);
+            })
+            .map(row => ({
+                total: parseSweepingNumber(row[6]),
+                target: parseSweepingNumber(row[7])
+            }));
+
+        const total = data.reduce(
+            (sum, row) => sum + row.total,
+            0
+        );
+
+        const target = data.reduce(
+            (sum, row) => sum + row.target,
+            0
+        );
+
+        const persen = target > 0
+            ? (total / target) * 100
+            : 0;
+
+        const targetEl =
+            document.getElementById("homeSweepingTarget");
+
+        const realisasiEl =
+            document.getElementById("homeSweepingRealisasi");
+
+        const persenEl =
+            document.getElementById("homeSweepingPersen");
+
+        if (targetEl) {
+            targetEl.textContent =
+                "Rp " + target.toLocaleString("id-ID");
+        }
+
+        if (realisasiEl) {
+            realisasiEl.textContent =
+                "Rp " + total.toLocaleString("id-ID");
+        }
+
+        if (persenEl) {
+            persenEl.textContent =
+                persen.toLocaleString("id-ID", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }) + "%";
+        }
+
+    } catch (error) {
+        console.error("Sweeping Error:", error);
+    }
+}
+async function loadMeterHilang() {
+    try {
+        const response = await fetch(METER_HILANG_URL, {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error("Gagal mengambil data Meter Hilang.");
+        }
+
+        const csvText = await response.text();
+
+        const rows = csvText
+            .trim()
+            .split(/\r?\n/);
+
+        if (!rows || rows.length <= 1) {
+            throw new Error("Data Meter Hilang kosong.");
+        }
+
+        // TOTAL KASUS
+        const total = rows.length - 1;
+
+        // HITUNG KASUS AKTIF PER ZONA
+        const zonaAktif = {};
+
+        for (let i = 1; i < rows.length; i++) {
+            const cols = rows[i].split(",");
+
+            const zona = String(cols[1] || "")
+                .trim()
+                .toUpperCase();
+
+            const status = String(cols[7] || "")
+                .trim()
+                .toUpperCase();
+
+            if (status === "PROSES" || status === "BARU") {
+                zonaAktif[zona] =
+                    (zonaAktif[zona] || 0) + 1;
+            }
+        }
+
+        // CARI HOT ZONE
+        let hotZona = "-";
+        let jumlahKasus = 0;
+
+        for (const zona in zonaAktif) {
+            if (zonaAktif[zona] > jumlahKasus) {
+                jumlahKasus = zonaAktif[zona];
+                hotZona = zona;
+            }
+        }
+
+        // TENTUKAN LEVEL
+        let level = "🟢 NORMAL";
+
+        if (jumlahKasus >= 5) {
+            level = "🔴 KRITIS";
+        } else if (jumlahKasus >= 3) {
+            level = "🟠 SIAGA";
+        } else if (jumlahKasus >= 1) {
+            level = "🟡 WASPADA";
+        }
+
+        // TAMPILKAN KE HOME
+        const totalEl =
+            document.getElementById("homeMeterTotal");
+
+        const statusEl =
+            document.getElementById("homeMeterStatus");
+
+        const hotZoneEl =
+            document.getElementById("homeMeterHotZone");
+
+        if (totalEl) {
+            totalEl.textContent =
+                total.toLocaleString("id-ID");
+        }
+
+        if (statusEl) {
+            statusEl.textContent = level;
+        }
+
+        if (hotZoneEl) {
+            hotZoneEl.textContent = hotZona;
+        }
+
+    } catch (error) {
+        console.error("Meter Hilang Error:", error);
+    }
+}
 function setConnectionStatus(type, online) {
   const dot = document.getElementById(type + "StatusDot");
   const text = document.getElementById(type + "StatusText");
@@ -320,6 +498,10 @@ function setConnectionStatus(type, online) {
 document.addEventListener("DOMContentLoaded", function () {
     loadBreakingNews();
     loadTutupDinas();
+    loadSweeping();
+    loadMeterHilang();
+
     setConnectionStatus("dashboard", true);
+
     setInterval(loadBreakingNews, 60000);
 });
