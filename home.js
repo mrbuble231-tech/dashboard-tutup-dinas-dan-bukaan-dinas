@@ -1,5 +1,7 @@
 const BREAKING_NEWS_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBV3h8Cj871kZWAzP8r0bPKkMODcrURrJrJsAeizKnbm6mn7ThObiaTgOL1EM3jv5ua8Taap3xS9dL/pub?gid=166700684&single=true&output=csv";
+const TUTUP_DINAS_URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vRr8R_L7SK3go995gTrx9UZUJMtUeyrCq1SLSrtYlN9HlZeHKFUODicrD_9cyr8H57EppczJ3ID7k4-/pub?gid=269519834&single=true&output=csv";
 
 function parseCSV(text) {
   const rows = [];
@@ -39,7 +41,83 @@ function parseCSV(text) {
 
   return rows;
 }
+function parseAngkaIndonesia(value) {
+    if (value === null || value === undefined || value === "") {
+        return 0;
+    }
 
+    return Number(
+        String(value)
+            .trim()
+            .replace(/\./g, "")
+            .replace(/,/g, ".")
+    ) || 0;
+}
+
+async function loadTutupDinas() {
+    try {
+        const response = await fetch(TUTUP_DINAS_URL, {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error("Gagal mengambil data Tutup Dinas.");
+        }
+
+        const csvText = await response.text();
+        const rows = parseCSV(csvText);
+
+        if (!rows || rows.length <= 1) {
+            throw new Error("Data Tutup Dinas kosong.");
+        }
+
+        const data = rows
+            .slice(1)
+            .filter(row => row.length >= 7)
+            .map(row => ({
+                terimaTutup: parseAngkaIndonesia(row[2]),
+                realisasiBayar: parseAngkaIndonesia(row[3]),
+                terimaBukaan: parseAngkaIndonesia(row[5]),
+                realisasiBukaan: parseAngkaIndonesia(row[6])
+            }));
+
+        const terimaTutup = data.reduce(
+            (sum, row) => sum + row.terimaTutup,
+            0
+        );
+
+        const realisasiBayar = data.reduce(
+            (sum, row) => sum + row.realisasiBayar,
+            0
+        );
+
+        const persen = terimaTutup > 0
+            ? (realisasiBayar / terimaTutup) * 100
+            : 0;
+
+        const terimaEl = document.getElementById("homeTutupTerima");
+        const realisasiEl = document.getElementById("homeTutupRealisasi");
+        const persenEl = document.getElementById("homeTutupPersen");
+
+        if (terimaEl) {
+            terimaEl.textContent = terimaTutup.toLocaleString("id-ID");
+        }
+
+        if (realisasiEl) {
+            realisasiEl.textContent = realisasiBayar.toLocaleString("id-ID");
+        }
+
+        if (persenEl) {
+            persenEl.textContent = persen.toLocaleString("id-ID", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }) + "%";
+        }
+
+    } catch (error) {
+        console.error("Tutup Dinas Error:", error);
+    }
+}
 function escapeHTML(value) {
   return String(value || "")
     .replace(/&/g, "&amp;")
@@ -225,8 +303,8 @@ function setConnectionStatus(type, online) {
   text.textContent = online ? "ONLINE" : "OFFLINE";
 }
 document.addEventListener("DOMContentLoaded", function () {
-  loadBreakingNews();
-  setConnectionStatus("dashboard", true);
-  // Refresh setiap 60 detik
-  setInterval(loadBreakingNews, 60000);
+    loadBreakingNews();
+    loadTutupDinas();
+    setConnectionStatus("dashboard", true);
+    setInterval(loadBreakingNews, 60000);
 });
