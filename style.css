@@ -1422,3 +1422,101 @@ tfoot td {
     background:
         rgba(37, 215, 255, 0.05);
 }
+/* ================================
+   BREAKING NEWS - HOME
+================================ */
+
+.breaking-news {
+  margin: 28px 0;
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 70, 70, 0.35);
+  border-radius: 14px;
+  background: rgba(10, 25, 42, 0.85);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.breaking-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.breaking-badge {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: #ff5252;
+}
+
+.breaking-live {
+  font-size: 11px;
+  font-weight: 700;
+  color: #63ff8a;
+}
+
+.breaking-news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.breaking-empty {
+  padding: 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #91a6bb;
+  font-size: 13px;
+}
+
+.breaking-item {
+  padding: 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.035);
+  border-left: 3px solid #ff5252;
+}
+
+.breaking-item-title {
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.breaking-item-meta {
+  margin-bottom: 7px;
+  color: #7edcff;
+  font-size: 11px;
+}
+
+.breaking-item-summary {
+  margin: 0;
+  color: #b8c7d8;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.breaking-item-source {
+  display: inline-block;
+  margin-top: 9px;
+  color: #25d7ff;
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.breaking-item-source:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .breaking-news {
+    margin: 20px 0;
+    padding: 15px;
+  }
+
+  .breaking-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
