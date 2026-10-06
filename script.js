@@ -1085,7 +1085,17 @@ function hideWelcome() {
 if (enterButton) {
     enterButton.addEventListener("click", function () {
         enterButton.disabled = true;
-        window.location.href = "home.html";
+
+        if (welcomeAudio) {
+            welcomeAudio.currentTime = 0;
+            welcomeAudio.play().catch(function (error) {
+                console.log("Welcome audio tidak dapat diputar:", error);
+            });
+        }
+
+        setTimeout(function () {
+            window.location.href = "home.html";
+        }, 1500);
     });
 }
 
