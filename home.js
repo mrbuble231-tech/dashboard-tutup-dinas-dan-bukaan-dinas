@@ -1,5 +1,5 @@
 const BREAKING_NEWS_URL =
-  "https://docs.google.com/spreadsheets/d/1vzWR3aAA50V5o2pH72LW96OyMY-dTHSwkvAWxMn-EhY/gviz/tq?tqx=out:csv&gid=166700684";
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBV3h8Cj871kZWAzP8r0bPKkMODcrURrJrJsAeizKnbm6mn7ThObiaTgOL1EM3jv5ua8Taap3xS9dL/pub?gid=166700684&single=true&output=csv";
 
 function parseCSV(text) {
   const rows = [];
