@@ -122,6 +122,46 @@
   font-weight: 700;
   letter-spacing: 1px;
 }
+    .connection-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.connection-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #9db7c7;
+  font-size: 10px;
+}
+
+.connection-item strong {
+  color: #00ff66;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.connection-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00ff66;
+  box-shadow: 0 0 8px #00ff66;
+  flex-shrink: 0;
+}
+
+.connection-dot.offline {
+  background: #ff304f;
+  box-shadow: 0 0 8px #ff304f;
+}
+
+.connection-item strong.offline {
+  color: #ff304f;
+}
   </style>
 </head>
 <body>
@@ -140,6 +180,25 @@
    <div class="realtime-info">
   <div id="realtimeDate">--</div>
   <div id="realtimeClock">--:--:-- WIB</div>
+</div>
+   <div class="connection-status">
+  <div class="connection-item">
+    <span id="sheetStatusDot" class="connection-dot"></span>
+    <span>Google Sheet</span>
+    <strong id="sheetStatusText">CHECKING...</strong>
+  </div>
+
+  <div class="connection-item">
+    <span id="newsStatusDot" class="connection-dot"></span>
+    <span>Breaking News</span>
+    <strong id="newsStatusText">CHECKING...</strong>
+  </div>
+
+  <div class="connection-item">
+    <span id="dashboardStatusDot" class="connection-dot"></span>
+    <span>Dashboard</span>
+    <strong id="dashboardStatusText">ONLINE</strong>
+  </div>
 </div>
 </header>
 
