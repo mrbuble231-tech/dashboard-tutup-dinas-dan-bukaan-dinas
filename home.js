@@ -178,7 +178,20 @@ async function loadBreakingNews() {
     }
     setConnectionStatus("news", true);
     setConnectionStatus("sheet", true);
+const updatedNow = new Date();
 
+const updatedTime = updatedNow.toLocaleTimeString("id-ID", {
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: false
+});
+
+const lastUpdated = document.getElementById("lastUpdated");
+
+if (lastUpdated) {
+  lastUpdated.textContent = updatedTime + " WIB";
+}
     const csvText = await response.text();
     const rows = parseCSV(csvText);
 
