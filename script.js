@@ -1089,25 +1089,4 @@ if (enterButton) {
     });
 }
 
-            }).catch(function (error) {
-
-                console.log(
-                    "Welcome audio tidak dapat diputar:",
-                    error
-                );
-
-                hideWelcome();
-
-            });
-
-        } else {
-
-            hideWelcome();
-
-        }
-
-    });
-
-}
-
 })();
