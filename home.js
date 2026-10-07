@@ -6,6 +6,8 @@ const SWEEPING_URL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vSl-54_yoSLzhScnnqobxltHP6ix37y2L_ThNjXic5eqGKd0N5Ule916jxr9ISKQtnGR_RkAVXsxW1O/pub?gid=0&single=true&output=csv";
 const METER_HILANG_URL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vTTAgE1S935-2P6AUUddelLeHJBOcUgrzAROMQAzu1AyGhm6SVRncEcuplPqxnvdFKsZDEcIOqyhwbv/pub?gid=0&single=true&output=csv";
+    const HOME_TREND_URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vTTAgE1S935-2P6AUUddelLeHJBOcUgrzAROMQAzu1AyGhm6SVRncEcuplPqxnvdFKsZDEcIOqyhwbv/pub?gid=1078006060&single=true&output=csv";
 function parseCSV(text) {
   const rows = [];
   let row = [];
@@ -580,11 +582,83 @@ console.log("RAW CSV:", text);
         `;
     }
 }
+async function loadHomeTrendMeter() {
+    const canvas = document.getElementById("homeTrendMeterChart");
+
+    if (!canvas) return;
+
+    try {
+        const response = await fetch(HOME_TREND_URL + "&t=" + Date.now());
+
+        if (!response.ok) {
+            throw new Error("Gagal mengambil data Trend Meter Hilang");
+        }
+
+        const text = await response.text();
+        const rows = parseCSV(text);
+
+        if (!rows || rows.length <= 1) {
+            return;
+        }
+
+        const labels = [];
+        const data = [];
+
+        rows.slice(1).forEach(row => {
+            if (!row || row.length < 2) return;
+
+            labels.push(row[0]);
+            data.push(Number(row[1]) || 0);
+        });
+
+        new Chart(canvas, {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Meter Hilang",
+                    data: data,
+                    borderWidth: 3,
+                    tension: 0.3,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: "white"
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: "white"
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: "white"
+                        }
+                    }
+                }
+            }
+        });
+
+    } catch (error) {
+        console.error("Trend Meter Hilang:", error);
+    }
+}
 document.addEventListener("DOMContentLoaded", function () {
     loadBreakingNews();
     loadTutupDinas();
     loadSweeping();
     loadMeterHilangTerbaru();
+    loadHomeTrendMeter();
 
     setConnectionStatus("dashboard", true);
 

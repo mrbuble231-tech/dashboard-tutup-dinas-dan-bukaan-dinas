@@ -169,6 +169,46 @@
   letter-spacing: 0.6px;
   text-align: center;
 }
+/* ================================
+   FASE 6 — TREND METER HILANG
+================================ */
+
+.trend-meter-section {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.trend-meter-header {
+    margin-bottom: 18px;
+}
+
+.trend-meter-header h2 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.trend-meter-header p {
+    margin: 0;
+    font-size: 15px;
+    opacity: 0.85;
+}
+
+.trend-meter-card {
+    width: 100%;
+    height: 320px;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 180, 255, 0.35);
+    border-radius: 16px;
+    background: rgba(0, 20, 35, 0.55);
+    overflow: hidden;
+}
+
+.trend-meter-card canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
   </style>
 </head>
 <body>
@@ -478,7 +518,19 @@
             </tbody>
         </table>
     </div>
+<!-- FASE 6 — TREND METER HILANG -->
+<section class="trend-meter-section">
 
+    <div class="trend-meter-header">
+        <h2>📈 TREND METER HILANG 2026</h2>
+        <p>Perkembangan kasus meter hilang berdasarkan bulan</p>
+    </div>
+
+    <div class="trend-meter-card">
+        <canvas id="homeTrendMeterChart"></canvas>
+    </div>
+
+</section>
 </section>
 
 </main>>
@@ -487,6 +539,7 @@
     🦏 RHINOCEROS COMMAND CENTER • SURABAYA<br>
     Sistem Monitoring Operasional
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="home.js?v=2"></script>
   <script>
 function updateRealtimeClock() {
