@@ -495,11 +495,82 @@ function setConnectionStatus(type, online) {
 
   text.textContent = online ? "ONLINE" : "OFFLINE";
 }
+
+async function loadMeterHilangTerbaru() {
+    const tbody = document.getElementById("latestMeterTableBody");
+
+    if (!tbody) return;
+
+    try {
+        const response = await fetch(METER_HILANG_URL);
+
+        if (!response.ok) {
+            throw new Error("Gagal mengambil data Meter Hilang");
+        }
+
+        const text = await response.text();
+        const rows = parseCSV(text);
+        console.log("METER HILANG ROWS:", rows);
+console.log("JUMLAH ROWS:", rows.length);
+console.log("ROW PERTAMA:", rows[1]);
+console.log("PANJANG KOLOM:", rows.slice(0, 5).map(row => row.length));
+console.log("DATA KOLOM 0:", rows[1]?.[0]);
+console.log("DATA KOLOM 1:", rows[1]?.[1]);
+console.log("RAW CSV:", text);
+
+        if (!rows || rows.length <= 1) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7">Belum ada data Meter Hilang.</td>
+                </tr>
+            `;
+            return;
+        }
+
+        const data = rows
+            .slice(1)
+            .filter(row => row && row.length >= 8)
+            .sort((a, b) => {
+                return (
+                    parseTanggalMeterHilang(b[0]) -
+                    parseTanggalMeterHilang(a[0])
+                );
+            })
+            .slice(0, 10);
+
+        tbody.innerHTML = "";
+
+        data.forEach(row => {
+            const tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <td>${row[0] || "-"}</td>
+                <td>${row[1] || "-"}</td>
+                <td>${row[2] || "-"}</td>
+                <td>${row[3] || "-"}</td>
+                <td>${row[4] || "-"}</td>
+                <td>${row[6] || "-"}</td>
+                <td>${row[7] || "-"}</td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+
+    } catch (error) {
+        console.error("Meter Hilang Terbaru:", error);
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7">Gagal memuat data Meter Hilang.</td>
+            </tr>
+        `;
+    }
+}
 document.addEventListener("DOMContentLoaded", function () {
     loadBreakingNews();
     loadTutupDinas();
     loadSweeping();
-    loadMeterHilang();
+    loadMeterHilangTerbaru();
 
     setConnectionStatus("dashboard", true);
 
