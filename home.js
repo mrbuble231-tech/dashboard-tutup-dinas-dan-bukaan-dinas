@@ -5,7 +5,7 @@ const TUTUP_DINAS_URL =
 const SWEEPING_URL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vSl-54_yoSLzhScnnqobxltHP6ix37y2L_ThNjXic5eqGKd0N5Ule916jxr9ISKQtnGR_RkAVXsxW1O/pub?gid=0&single=true&output=csv";
 const METER_HILANG_URL =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vTTAgE1S935-2P6AUUddelLeHJBOcUgrzAROMQAzu1AyGhm6SVRncEcuplPqxnvdFKsZDEcIOqyhwbv/pub?gid=1078006060&single=true&output=csv";
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vTTAgE1S935-2P6AUUddelLeHJBOcUgrzAROMQAzu1AyGhm6SVRncEcuplPqxnvdFKsZDEcIOqyhwbv/pub?gid=0&single=true&output=csv";
 function parseCSV(text) {
   const rows = [];
   let row = [];
@@ -495,7 +495,21 @@ function setConnectionStatus(type, online) {
 
   text.textContent = online ? "ONLINE" : "OFFLINE";
 }
+function parseTanggalMeterHilang(value) {
+    const text = String(value || "").trim();
 
+    const parts = text.split("/");
+
+    if (parts.length === 3) {
+        return new Date(
+            Number(parts[2]),
+            Number(parts[1]) - 1,
+            Number(parts[0])
+        );
+    }
+
+    return new Date(0);
+}
 async function loadMeterHilangTerbaru() {
     const tbody = document.getElementById("latestMeterTableBody");
 
