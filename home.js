@@ -576,7 +576,10 @@ console.log("RAW CSV:", text);
 
             tbody.appendChild(tr);
         });
-
+addLiveActivity(
+    "METER HILANG UPDATED",
+    "Data Meter Hilang berhasil diperbarui"
+);
     } catch (error) {
         console.error("Meter Hilang Terbaru:", error);
 
