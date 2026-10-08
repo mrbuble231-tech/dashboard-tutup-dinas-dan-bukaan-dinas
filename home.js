@@ -133,7 +133,10 @@ async function loadTutupDinas() {
                 maximumFractionDigits: 2
             }) + "%";
         }
-
+addLiveActivity(
+    "TUTUP DINAS UPDATED",
+    "Data Tutup Dinas berhasil diperbarui"
+);
     } catch (error) {
         console.error("Tutup Dinas Error:", error);
     }
