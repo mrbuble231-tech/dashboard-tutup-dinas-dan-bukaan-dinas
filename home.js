@@ -394,6 +394,10 @@ async function loadSweeping() {
                     maximumFractionDigits: 2
                 }) + "%";
         }
+      addLiveActivity(
+    "SWEEPING UPDATED",
+    "Data Sweeping berhasil diperbarui"
+);
 
     } catch (error) {
         console.error("Sweeping Error:", error);
