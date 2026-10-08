@@ -290,10 +290,15 @@ const lastUpdated = document.getElementById("lastUpdated");
 if (lastUpdated) {
   lastUpdated.textContent = updatedTime + " WIB";
 }
-    const csvText = await response.text();
-    const rows = parseCSV(csvText);
+   const csvText = await response.text();
+const rows = parseCSV(csvText);
 
-    tampilkanBreakingNews(rows);
+tampilkanBreakingNews(rows);
+
+addLiveActivity(
+    "BREAKING NEWS UPDATED",
+    "Data Breaking News berhasil diperbarui"
+);
 
   } catch (error) {
     setConnectionStatus("news", false);
