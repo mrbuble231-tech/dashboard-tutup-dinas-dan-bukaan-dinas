@@ -711,6 +711,47 @@ async function loadRingkasanZona() {
         console.error("Ringkasan Zona:", error);
     }
 }
+// =================================
+// FASE 8 — LIVE ACTIVITY SYSTEM
+// =================================
+
+function addLiveActivity(title, detail) {
+    const list = document.getElementById("liveActivityList");
+
+    if (!list) return;
+
+    const now = new Date();
+
+    const time = now.toLocaleTimeString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+    });
+
+    const item = document.createElement("div");
+
+    item.className = "live-activity-item";
+
+    item.innerHTML = `
+        <span class="activity-dot"></span>
+
+        <div class="activity-content">
+            <strong>${title}</strong>
+            <small>${detail}</small>
+        </div>
+
+        <span class="activity-time">${time}</span>
+    `;
+
+    list.prepend(item);
+
+    const items = list.querySelectorAll(".live-activity-item");
+
+    if (items.length > 6) {
+        items[items.length - 1].remove();
+    }
+}
 document.addEventListener("DOMContentLoaded", function () {
     loadBreakingNews();
     loadTutupDinas();
