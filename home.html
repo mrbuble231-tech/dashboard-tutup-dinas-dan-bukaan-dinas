@@ -274,6 +274,92 @@
     font-weight: 700;
     opacity: 0.7;
 }
+    /* =================================
+   FASE 8 — LIVE ACTIVITY SYSTEM
+================================= */
+
+.live-activity-section {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.live-activity-header {
+    margin-bottom: 18px;
+}
+
+.live-activity-header h2 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.live-activity-header p {
+    margin: 0;
+    font-size: 15px;
+    opacity: 0.85;
+}
+
+.live-activity-card {
+    width: 100%;
+    padding: 18px;
+    box-sizing: border-box;
+
+    border: 1px solid rgba(0, 180, 255, 0.35);
+    border-radius: 16px;
+    background: rgba(0, 20, 35, 0.55);
+}
+
+.live-activity-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.live-activity-item {
+    display: grid;
+    grid-template-columns: 12px 1fr auto;
+    gap: 12px;
+    align-items: center;
+
+    padding: 14px 4px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.live-activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.7);
+}
+
+.activity-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.activity-content strong {
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.activity-content small {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.activity-time {
+    font-size: 12px;
+    font-weight: 700;
+    opacity: 0.65;
+    white-space: nowrap;
+}
   </style>
 </head>
 <body>
@@ -639,7 +725,36 @@
     </div>
 </section>
 
-</main>>
+<!-- FASE 8 — LIVE ACTIVITY SYSTEM -->
+<section class="live-activity-section">
+
+    <div class="live-activity-header">
+        <h2>🔴 LIVE ACTIVITY SYSTEM</h2>
+        <p>Aktivitas terbaru Command Center</p>
+    </div>
+
+    <div class="live-activity-card">
+
+        <div id="liveActivityList" class="live-activity-list">
+
+            <div class="live-activity-item">
+                <span class="activity-dot"></span>
+
+                <div class="activity-content">
+                    <strong>SYSTEM ONLINE</strong>
+                    <small>Command Center aktif</small>
+                </div>
+
+                <span class="activity-time">--:--:--</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
 
   <footer>
     🦏 RHINOCEROS COMMAND CENTER • SURABAYA<br>
