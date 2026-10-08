@@ -209,6 +209,71 @@
     width: 100% !important;
     height: 100% !important;
 }
+    /* =================================
+   FASE 7 — RINGKASAN PER ZONA
+================================= */
+
+.zone-summary-section {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.zone-summary-header {
+    margin-bottom: 18px;
+}
+
+.zone-summary-header h2 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.zone-summary-header p {
+    margin: 0;
+    font-size: 15px;
+    opacity: 0.85;
+}
+
+.zone-summary-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+}
+
+.zone-summary-card {
+    min-height: 130px;
+    padding: 18px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    border: 1px solid rgba(0, 180, 255, 0.35);
+    border-radius: 16px;
+    background: rgba(0, 20, 35, 0.55);
+}
+
+.zone-summary-label {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    opacity: 0.85;
+}
+
+.zone-summary-card strong {
+    margin: 8px 0 4px;
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.zone-summary-card small {
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0.7;
+}
   </style>
 </head>
 <body>
@@ -531,6 +596,47 @@
     </div>
 
 </section>
+  <!-- FASE 7 — RINGKASAN PER ZONA -->
+<section class="zone-summary-section">
+
+    <div class="zone-summary-header">
+        <h2>📊 RINGKASAN PER ZONA</h2>
+        <p>Jumlah kasus meter hilang berdasarkan zona</p>
+    </div>
+
+    <div class="zone-summary-grid">
+
+        <div class="zone-summary-card">
+            <span class="zone-summary-label">ZONA 1</span>
+            <strong id="homeZone1">-</strong>
+            <small>KASUS</small>
+        </div>
+
+        <div class="zone-summary-card">
+            <span class="zone-summary-label">ZONA 2</span>
+            <strong id="homeZone2">-</strong>
+            <small>KASUS</small>
+        </div>
+
+        <div class="zone-summary-card">
+            <span class="zone-summary-label">ZONA 3</span>
+            <strong id="homeZone3">-</strong>
+            <small>KASUS</small>
+        </div>
+
+        <div class="zone-summary-card">
+            <span class="zone-summary-label">ZONA 4</span>
+            <strong id="homeZone4">-</strong>
+            <small>KASUS</small>
+        </div>
+
+        <div class="zone-summary-card">
+            <span class="zone-summary-label">ZONA 5</span>
+            <strong id="homeZone5">-</strong>
+            <small>KASUS</small>
+        </div>
+
+    </div>
 </section>
 
 </main>>
