@@ -653,12 +653,71 @@ async function loadHomeTrendMeter() {
         console.error("Trend Meter Hilang:", error);
     }
 }
+// =================================
+// FASE 7 — RINGKASAN PER ZONA
+// =================================
+
+async function loadRingkasanZona() {
+    try {
+        const response = await fetch(METER_HILANG_URL);
+
+        if (!response.ok) {
+            throw new Error("Gagal mengambil data Ringkasan Zona");
+        }
+
+        const text = await response.text();
+        const rows = parseCSV(text);
+
+        if (!rows || rows.length <= 1) {
+            return;
+        }
+
+        const zonaCount = {
+            "ZONA 1": 0,
+            "ZONA 2": 0,
+            "ZONA 3": 0,
+            "ZONA 4": 0,
+            "ZONA 5": 0
+        };
+
+        rows.slice(1).forEach(row => {
+            if (!row || row.length < 2) return;
+
+            const zona = String(row[1] || "")
+                .trim()
+                .toUpperCase();
+
+            if (zonaCount.hasOwnProperty(zona)) {
+                zonaCount[zona]++;
+            }
+        });
+
+        document.getElementById("homeZone1").textContent =
+            zonaCount["ZONA 1"];
+
+        document.getElementById("homeZone2").textContent =
+            zonaCount["ZONA 2"];
+
+        document.getElementById("homeZone3").textContent =
+            zonaCount["ZONA 3"];
+
+        document.getElementById("homeZone4").textContent =
+            zonaCount["ZONA 4"];
+
+        document.getElementById("homeZone5").textContent =
+            zonaCount["ZONA 5"];
+
+    } catch (error) {
+        console.error("Ringkasan Zona:", error);
+    }
+}
 document.addEventListener("DOMContentLoaded", function () {
     loadBreakingNews();
     loadTutupDinas();
     loadSweeping();
     loadMeterHilangTerbaru();
     loadHomeTrendMeter();
+    loadRingkasanZona();
 
     setConnectionStatus("dashboard", true);
 
