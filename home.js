@@ -759,6 +759,10 @@ document.addEventListener("DOMContentLoaded", function () {
     loadMeterHilangTerbaru();
     loadHomeTrendMeter();
     loadRingkasanZona();
+  addLiveActivity(
+    "SYSTEM ONLINE",
+    "Command Center aktif"
+);
 
     setConnectionStatus("dashboard", true);
 
