@@ -298,11 +298,6 @@ const rows = parseCSV(csvText);
 
 tampilkanBreakingNews(rows);
 
-addLiveActivity(
-    "BREAKING NEWS UPDATED",
-    "Data Breaking News berhasil diperbarui"
-);
-
   } catch (error) {
     setConnectionStatus("news", false);
     setConnectionStatus("sheet", false);
