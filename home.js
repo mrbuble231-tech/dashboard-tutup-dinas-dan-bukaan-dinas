@@ -766,9 +766,10 @@ document.addEventListener("DOMContentLoaded", function () {
     loadBreakingNews();
     loadTutupDinas();
     loadSweeping();
+    loadMeterHilang();
     loadMeterHilangTerbaru();
     loadHomeTrendMeter();
-    loadRingkasanZona();
+
   addLiveActivity(
     "SYSTEM ONLINE",
     "Command Center aktif"
