@@ -769,6 +769,7 @@ document.addEventListener("DOMContentLoaded", function () {
     loadMeterHilang();
     loadMeterHilangTerbaru();
     loadHomeTrendMeter();
+    loadRingkasanZona();
 
   addLiveActivity(
     "SYSTEM ONLINE",
