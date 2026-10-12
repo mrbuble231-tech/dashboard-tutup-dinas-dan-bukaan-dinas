@@ -46,20 +46,6 @@ function parseCSV(text) {
 
   return rows;
 }
-function parseAngkaIndonesia(value) {
-    if (!value) return 0;
-
-    const text = String(value)
-        .trim()
-        .replace(/\//g, "");
-
-    if (/^\d{1,3}\.\d{3}$/.test(text)) {
-        return Number(text.replace(/\./g, ""));
-    }
-
-    return Number(text.replace(/,/g, "")) || 0;
-}
-
    function parseAngkaIndonesia(value) {
     if (!value) return 0;
 
