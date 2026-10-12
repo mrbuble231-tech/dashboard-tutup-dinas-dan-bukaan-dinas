@@ -519,14 +519,6 @@ async function loadMeterHilangTerbaru() {
 
         const text = await response.text();
         const rows = parseCSV(text);
-        console.log("METER HILANG ROWS:", rows);
-console.log("JUMLAH ROWS:", rows.length);
-console.log("ROW PERTAMA:", rows[1]);
-console.log("PANJANG KOLOM:", rows.slice(0, 5).map(row => row.length));
-console.log("DATA KOLOM 0:", rows[1]?.[0]);
-console.log("DATA KOLOM 1:", rows[1]?.[1]);
-console.log("RAW CSV:", text);
-
         if (!rows || rows.length <= 1) {
             tbody.innerHTML = `
                 <tr>
