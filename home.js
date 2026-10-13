@@ -527,21 +527,20 @@ async function loadMeterHilangTerbaru() {
             `;
             return;
         }
+   const data = rows
+    .slice(1)
+    .filter(row => row && row.length >= 8)
+    .sort((a, b) => {
+        return (
+            parseTanggalMeterHilang(b[0]) -
+            parseTanggalMeterHilang(a[0])
+        );
+    })
+    .slice(0, 10);
 
-        const data = rows
-            .slice(1)
-            .filter(row => row && row.length >= 8)
-            .sort((a, b) => {
-                return (
-                    parseTanggalMeterHilang(b[0]) -
-                    parseTanggalMeterHilang(a[0])
-                );
-            })
-            .slice(0, 10);
+tbody.innerHTML = "";
 
-        tbody.innerHTML = "";
-
-        data.forEach(row => {
+data.forEach(row => {
             const tr = document.createElement("tr");
 
             tr.innerHTML = `
