@@ -1,5 +1,5 @@
-/* =========================================
-   JARVIS V1.0 — CORE UI
+﻿/* =========================================
+   JARVIS V1.0 â€” CORE UI
    Tahap 1: Buka dan tutup panel
 ========================================= */
 
@@ -26,7 +26,7 @@ const speechSupported = typeof SpeechRecognition !== "undefined";
 
 micButton.disabled = !speechSupported;
 micButton.textContent = speechSupported
-    ? "🎙 Aktifkan Mikrofon"
+    ? "ðŸŽ™ Aktifkan Mikrofon"
     : "Mikrofon tidak didukung browser";
 
 statusText.textContent = speechSupported
@@ -58,7 +58,7 @@ if (speechSupported) {
         micButton.textContent = "Mendengarkan...";
     };
 
-    
+
 
 recognition.onresult = function (event) {
     const said = event.results[0][0].transcript.trim();
@@ -88,7 +88,7 @@ let targetUrl = null;
                 minute: "2-digit"
             }) +
             ".";
-    
+
 
 } else if (
     command.includes("buka dashboard sweeping") ||
@@ -117,6 +117,30 @@ let targetUrl = null;
     ? "../home.html"
     : "./home.html";
 } else if (
+    command.includes("bacakan berita dunia") ||
+    command.includes("ringkas berita internasional") ||
+    command.includes("berita internasional") ||
+    command.includes("topik dunia terhangat") ||
+    command.includes("berita dunia")
+) {
+    const newsItems = Array.from(
+        document.querySelectorAll("#worldNewsList .world-news-item")
+    );
+
+    if (!newsItems.length) {
+        reply = "Maaf, berita dunia belum tersedia. Silakan muat berita di dashboard HOME terlebih dahulu.";
+    } else {
+        const headlines = newsItems.slice(0, 5).map((item, index) => {
+            const title = item.querySelector("h3")?.textContent.trim() || "";
+            const source = item.querySelector(".world-news-meta")?.textContent.trim() || "";
+            return `${index + 1}. ${title}. Sumber: ${source}.`;
+        });
+
+        reply = "Berikut ringkasan berita dunia terbaru. " +
+            headlines.join(" ");
+    }
+
+} else if (
     command.includes("ringkasan operasional") ||
 
     command.includes("ringkasan dashboard") ||
@@ -132,7 +156,7 @@ let targetUrl = null;
             : value;
     };
 
-    
+
 reply =
     "Ringkasan operasional RHINOCEROS. " +
 
@@ -204,7 +228,7 @@ reply =
         statusText.textContent = "BALASAN TEKS SIAP";
     }
 
-    micButton.textContent = "🎙 Aktifkan Mikrofon";
+    micButton.textContent = "ðŸŽ™ Aktifkan Mikrofon";
 };
 
     micButton.addEventListener("click", function () {
