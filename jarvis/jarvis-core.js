@@ -59,15 +59,43 @@ if (speechSupported) {
     };
 
     
+
 recognition.onresult = function (event) {
-    const said = event.results[0][0].transcript;
+    const said = event.results[0][0].transcript.trim();
+    const command = said.toLowerCase();
 
     const message = document.createElement("div");
     message.className = "jarvis-message user";
     message.textContent = said;
     conversation.appendChild(message);
 
-    const reply = "Halo, saya mendengar: " + said;
+    let reply;
+
+    if (
+        command.includes("halo") ||
+        command.includes("hai") ||
+        command.includes("hello")
+    ) {
+        reply = "Halo. JARVIS siap membantu.";
+    } else if (
+        command.includes("jam berapa") ||
+        command.includes("waktu sekarang")
+    ) {
+        reply = "Sekarang pukul " +
+            new Date().toLocaleTimeString("id-ID", {
+                hour: "2-digit",
+                minute: "2-digit"
+            }) +
+            ".";
+    } else if (
+        command.includes("buka dashboard") ||
+        command.includes("dashboard utama")
+    ) {
+        reply = "Dashboard utama sedang dibuka.";
+        window.location.href = "../home.html";
+    } else {
+        reply = "Maaf, perintah tersebut belum saya kenali. Silakan coba perintah lain.";
+    }
 
     const response = document.createElement("div");
     response.className = "jarvis-message assistant";
