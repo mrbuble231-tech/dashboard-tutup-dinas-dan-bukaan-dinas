@@ -739,6 +739,135 @@ function addLiveActivity(title, detail) {
         items[items.length - 1].remove();
     }
 }
+
+const WORLD_NEWS_FEEDS = [
+    {
+        name: "BBC World",
+        url: "https://feeds.bbci.co.uk/news/world/rss.xml"
+    },
+    {
+        name: "BBC Business",
+        url: "https://feeds.bbci.co.uk/news/business/rss.xml"
+    },
+    {
+        name: "Al Jazeera",
+        url: "https://www.aljazeera.com/xml/rss/all.xml"
+    },
+    {
+        name: "TechCrunch",
+        url: "https://techcrunch.com/feed/"
+    },
+    {
+        name: "NASA",
+        url: "https://www.nasa.gov/news-release/feed/"
+    }
+];
+
+const WORLD_NEWS_PROXY = "https://api.rss2json.com/v1/api.json?rss_url=";
+
+async function loadWorldNews() {
+    const list = document.getElementById("worldNewsList");
+    const status = document.getElementById("worldNewsStatus");
+    const updated = document.getElementById("worldNewsUpdated");
+
+    if (!list || !status || !updated) return;
+
+    status.textContent = "MEMUAT BERITA...";
+    list.setAttribute("aria-busy", "true");
+
+    try {
+        const results = await Promise.allSettled(
+            WORLD_NEWS_FEEDS.map(async feed => {
+                const url = WORLD_NEWS_PROXY + encodeURIComponent(feed.url);
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error("HTTP " + response.status);
+                }
+
+                const data = await response.json();
+
+                if (data.status !== "ok" || !Array.isArray(data.items)) {
+                    throw new Error("RSS tidak tersedia");
+                }
+
+                return data.items.map(item => ({
+                    title: item.title || "Untitled",
+                    link: item.link || "",
+                    source: feed.name,
+                    date: item.pubDate || ""
+                })).filter(item => item.link && /^https?:\/\//i.test(item.link));
+            })
+        );
+
+        const articles = results
+            .filter(result => result.status === "fulfilled")
+            .flatMap(result => result.value);
+
+        const unique = [...new Map(
+            articles.map(article => [article.link, article])
+        ).values()]
+            .sort((a, b) => {
+                const dateA = Date.parse(a.date) || 0;
+                const dateB = Date.parse(b.date) || 0;
+                return dateB - dateA;
+            })
+            .slice(0, 10);
+
+        if (!unique.length) {
+            throw new Error("Semua sumber berita gagal diakses");
+        }
+
+        list.innerHTML = unique.map(article => {
+            const title = escapeHTML(article.title);
+            const source = escapeHTML(article.source);
+            const date = Date.parse(article.date);
+            const time = date
+                ? new Date(date).toLocaleString("id-ID")
+                : "Waktu tidak tersedia";
+
+            return `
+                <article class="world-news-item">
+                    <h3>
+                        <a href="${escapeHTML(article.link)}"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            ${title}
+                        </a>
+                    </h3>
+                    <div class="world-news-meta">
+                        ${source} · ${escapeHTML(time)}
+                    </div>
+                </article>
+            `;
+        }).join("");
+
+        const successfulFeeds = results.filter(
+            result => result.status === "fulfilled"
+        ).length;
+
+        status.textContent = successfulFeeds + "/" +
+            WORLD_NEWS_FEEDS.length + " SUMBER AKTIF";
+
+        updated.textContent = "Diperbarui: " +
+            new Date().toLocaleTimeString("id-ID");
+
+    } catch (error) {
+        console.error("World News Error:", error);
+        status.textContent = "KONEKSI BERMASALAH";
+
+        if (!list.querySelector(".world-news-item")) {
+            list.innerHTML = `
+                <div class="world-news-loading">
+                    Berita dunia belum dapat dimuat. Silakan coba Refresh.
+                </div>
+            `;
+        }
+    } finally {
+        list.removeAttribute("aria-busy");
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     loadBreakingNews();
     loadTutupDinas();
@@ -747,6 +876,11 @@ document.addEventListener("DOMContentLoaded", function () {
     loadMeterHilangTerbaru();
     loadHomeTrendMeter();
     loadRingkasanZona();
+        loadWorldNews();
+    setInterval(loadWorldNews, 15 * 60 * 1000);
+
+    document.getElementById("worldNewsRefresh")
+        ?.addEventListener("click", loadWorldNews);
 
   addLiveActivity(
     "SYSTEM ONLINE",

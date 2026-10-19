@@ -425,6 +425,118 @@
     color: #a9bbcc;
     overflow-wrap: anywhere;
 }
+
+/* WORLD NEWS TRENDING — RHINOCEROS */
+.world-news-panel {
+  margin: 22px 0;
+  padding: 20px;
+  border: 1px solid #176080;
+  border-radius: 14px;
+  background: rgba(5, 24, 39, 0.92);
+  box-shadow: 0 8px 28px #0005;
+  min-width: 0;
+}
+
+.world-news-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.world-news-header h2 {
+  margin: 0 0 8px;
+  color: #65dfff;
+  font-size: clamp(18px, 2vw, 24px);
+}
+
+.world-news-header p {
+  margin: 0;
+  color: #a8c5d8;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+#worldNewsStatus {
+  padding: 7px 10px;
+  border: 1px solid #176080;
+  border-radius: 8px;
+  color: #65dfff;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.world-news-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 12px;
+}
+
+.world-news-loading,
+.world-news-item {
+  padding: 15px;
+  border: 1px solid #176080;
+  border-radius: 10px;
+  background: rgba(13, 48, 69, 0.65);
+}
+
+.world-news-item h3 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.world-news-item a {
+  color: #eaf6ff;
+  text-decoration: none;
+}
+
+.world-news-item a:hover {
+  color: #65dfff;
+}
+
+.world-news-meta {
+  color: #8fb2c8;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.world-news-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+  color: #8fb2c8;
+  font-size: 12px;
+}
+
+#worldNewsRefresh {
+  padding: 9px 13px;
+  border: 1px solid #2699d6;
+  border-radius: 8px;
+  background: #10334c;
+  color: #eaf6ff;
+  cursor: pointer;
+}
+
+#worldNewsRefresh:hover {
+  background: #176080;
+}
+
+@media (max-width: 600px) {
+  .world-news-panel {
+    padding: 14px;
+  }
+
+  .world-news-list {
+    grid-template-columns: 1fr;
+  }
+}
+
   </style>
   <link rel="stylesheet" href="jarvis/jarvis.css">
 </head>
@@ -490,6 +602,30 @@
     </div>
   </div>
 </section>
+
+<section class="world-news-panel">
+  <div class="world-news-header">
+    <div>
+      <h2>🌍 WORLD NEWS TRENDING</h2>
+      <p>International headlines · Politics · Technology · Economy · Conflict · Science</p>
+    </div>
+    <span id="worldNewsStatus">MENGHUBUNGKAN...</span>
+  </div>
+
+  <div id="worldNewsList" class="world-news-list">
+    <div class="world-news-loading">
+      Mengambil berita dunia terbaru...
+    </div>
+  </div>
+
+  <div class="world-news-footer">
+    <span id="worldNewsUpdated">Belum diperbarui</span>
+    <button id="worldNewsRefresh" type="button">
+      ↻ Refresh
+    </button>
+  </div>
+</section>
+
     <section class="cards">
       <article class="card">
     <div class="icon">📊</div>
