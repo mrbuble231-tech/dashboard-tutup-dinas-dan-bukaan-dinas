@@ -87,15 +87,43 @@ recognition.onresult = function (event) {
                 minute: "2-digit"
             }) +
             ".";
-    } else if (
-        command.includes("buka dashboard") ||
-        command.includes("dashboard utama")
-    ) {
-        reply = "Dashboard utama sedang dibuka.";
-        window.location.href = "../home.html";
-    } else {
-        reply = "Maaf, perintah tersebut belum saya kenali. Silakan coba perintah lain.";
-    }
+    
+} else if (
+    command.includes("buka dashboard") ||
+    command.includes("dashboard utama")
+) {
+    reply = "Dashboard utama sedang dibuka.";
+    window.location.href = "../home.html";
+} else if (
+    command.includes("ringkasan operasional") ||
+    command.includes("ringkasan dashboard") ||
+    command.includes("bacakan ringkasan")
+) {
+    const getValue = function (id) {
+        const element = document.getElementById(id);
+        if (!element) return "belum tersedia";
+
+        const value = element.textContent.trim();
+        return !value || value === "--" || value === "-"
+            ? "belum tersedia"
+            : value;
+    };
+
+    reply =
+        "Ringkasan operasional RHINOCEROS. " +
+        "Meter hilang, total kasus: " +
+        getValue("homeMeterTotal") + ". " +
+        "Status: " + getValue("homeMeterStatus") + ". " +
+        "Hot zone: " + getValue("homeMeterHotZone") + ". " +
+        "Zona 1: " + getValue("homeZone1") + " kasus. " +
+        "Zona 2: " + getValue("homeZone2") + " kasus. " +
+        "Zona 3: " + getValue("homeZone3") + " kasus. " +
+        "Zona 4: " + getValue("homeZone4") + " kasus. " +
+        "Zona 5: " + getValue("homeZone5") + " kasus. " +
+        "Status Google Sheets: " + getValue("sheetStatusText") + ".";
+} else {
+    reply = "Maaf, perintah tersebut belum saya kenali. Silakan coba perintah lain.";
+}
 
     const response = document.createElement("div");
     response.className = "jarvis-message assistant";
