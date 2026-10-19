@@ -1,0 +1,65 @@
+
+<div id="jarvis-widget">
+    <button
+        id="jarvis-toggle"
+        type="button"
+        aria-label="Buka JARVIS"
+        aria-expanded="false"
+        aria-controls="jarvis-panel"
+    >
+        <span aria-hidden="true">◉</span>
+    </button>
+
+    <section
+        id="jarvis-panel"
+        role="region"
+        aria-label="Asisten JARVIS"
+        aria-hidden="true"
+    >
+        <header class="jarvis-header">
+            <div class="jarvis-brand">
+                <div class="jarvis-orb" aria-hidden="true">◉</div>
+                <div>
+                    <h2 class="jarvis-title">JARVIS</h2>
+                    <p class="jarvis-subtitle">RHINOCEROS ASSISTANT</p>
+                </div>
+            </div>
+
+            <button
+                id="jarvis-close"
+                type="button"
+                aria-label="Tutup JARVIS"
+            >
+                ×
+            </button>
+        </header>
+
+        <div class="jarvis-status" role="status" aria-live="polite">
+            <span class="jarvis-status-dot"></span>
+            <span id="jarvis-status-text">JARVIS SIAP</span>
+        </div>
+
+        <div
+            id="jarvis-conversation"
+            class="jarvis-conversation"
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions"
+        >
+            <div class="jarvis-message assistant">
+                Selamat datang. JARVIS siap membantu Anda.
+            </div>
+        </div>
+
+        <div class="jarvis-controls">
+            <button id="jarvis-mic" type="button" disabled>
+                🎙 Mikrofon — Tahap Berikutnya
+            </button>
+        </div>
+
+        <p class="jarvis-note">
+            Fitur suara dan percakapan akan diaktifkan setelah panel dasar
+            berhasil diuji.
+        </p>
+    </section>
+</div>
