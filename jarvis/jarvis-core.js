@@ -70,6 +70,7 @@ recognition.onresult = function (event) {
     conversation.appendChild(message);
 
     let reply;
+let targetUrl = null;
 
     if (
         command.includes("halo") ||
@@ -88,14 +89,36 @@ recognition.onresult = function (event) {
             }) +
             ".";
     
+
+} else if (
+    command.includes("buka dashboard sweeping") ||
+    command.includes("buka sweeping")
+) {
+    reply = "Baik, membuka dashboard Sweeping.";
+    const basePath = window.location.pathname.includes("/jarvis/")
+        ? "../"
+        : "./";
+    targetUrl = basePath + "sweeping.html";
+} else if (
+    command.includes("buka dashboard meter hilang") ||
+    command.includes("buka meter hilang")
+) {
+    reply = "Baik, membuka dashboard Meter Hilang.";
+    const basePath = window.location.pathname.includes("/jarvis/")
+        ? "../"
+        : "./";
+    targetUrl = basePath + "meter-hilang/index.html";
 } else if (
     command.includes("buka dashboard") ||
     command.includes("dashboard utama")
 ) {
     reply = "Dashboard utama sedang dibuka.";
-    window.location.href = "../home.html";
+    targetUrl = window.location.pathname.includes("/jarvis/")
+    ? "../home.html"
+    : "./home.html";
 } else if (
     command.includes("ringkasan operasional") ||
+
     command.includes("ringkasan dashboard") ||
     command.includes("bacakan ringkasan")
 ) {
@@ -109,18 +132,33 @@ recognition.onresult = function (event) {
             : value;
     };
 
-    reply =
-        "Ringkasan operasional RHINOCEROS. " +
-        "Meter hilang, total kasus: " +
-        getValue("homeMeterTotal") + ". " +
-        "Status: " + getValue("homeMeterStatus") + ". " +
-        "Hot zone: " + getValue("homeMeterHotZone") + ". " +
-        "Zona 1: " + getValue("homeZone1") + " kasus. " +
-        "Zona 2: " + getValue("homeZone2") + " kasus. " +
-        "Zona 3: " + getValue("homeZone3") + " kasus. " +
-        "Zona 4: " + getValue("homeZone4") + " kasus. " +
-        "Zona 5: " + getValue("homeZone5") + " kasus. " +
-        "Status Google Sheets: " + getValue("sheetStatusText") + ".";
+    
+reply =
+    "Ringkasan operasional RHINOCEROS. " +
+
+    "Tutup Dinas dan Bukaan Kembali. " +
+    "Terima: " + getValue("homeTutupTerima") + ". " +
+    "Realisasi: " + getValue("homeTutupRealisasi") + ". " +
+    "Pencapaian: " + getValue("homeTutupPersen") + ". " +
+
+    "Sweeping. " +
+    "Target: " + getValue("homeSweepingTarget") + ". " +
+    "Realisasi: " + getValue("homeSweepingRealisasi") + ". " +
+    "Pencapaian: " + getValue("homeSweepingPersen") + ". " +
+
+    "Meter hilang. Total kasus: " +
+    getValue("homeMeterTotal") + ". " +
+    "Status: " + getValue("homeMeterStatus") + ". " +
+    "Hot zone: " + getValue("homeMeterHotZone") + ". " +
+
+    "Zona 1: " + getValue("homeZone1") + " kasus. " +
+    "Zona 2: " + getValue("homeZone2") + " kasus. " +
+    "Zona 3: " + getValue("homeZone3") + " kasus. " +
+    "Zona 4: " + getValue("homeZone4") + " kasus. " +
+    "Zona 5: " + getValue("homeZone5") + " kasus. " +
+
+    "Status Google Sheets: " + getValue("sheetStatusText") + ".";
+
 } else {
     reply = "Maaf, perintah tersebut belum saya kenali. Silakan coba perintah lain.";
 }
@@ -150,8 +188,12 @@ recognition.onresult = function (event) {
         }
 
         utterance.onend = function () {
-            statusText.textContent = "JARVIS SIAP";
-        };
+    statusText.textContent = "JARVIS SIAP";
+
+    if (targetUrl) {
+        window.location.href = targetUrl;
+    }
+};
 
         utterance.onerror = function () {
             statusText.textContent = "BALASAN SUARA GAGAL";
