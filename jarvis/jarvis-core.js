@@ -1,5 +1,5 @@
-﻿/* =========================================
-   JARVIS V1.0 â€” CORE UI
+/* =========================================
+   JARVIS V1.0 — CORE UI
    Tahap 1: Buka dan tutup panel
 ========================================= */
 
@@ -26,7 +26,7 @@ const speechSupported = typeof SpeechRecognition !== "undefined";
 
 micButton.disabled = !speechSupported;
 micButton.textContent = speechSupported
-    ? "ðŸŽ™ Aktifkan Mikrofon"
+    ? "🎙 Aktifkan Mikrofon"
     : "Mikrofon tidak didukung browser";
 
 statusText.textContent = speechSupported
@@ -58,7 +58,7 @@ if (speechSupported) {
         micButton.textContent = "Mendengarkan...";
     };
 
-
+    
 
 recognition.onresult = function (event) {
     const said = event.results[0][0].transcript.trim();
@@ -71,13 +71,25 @@ recognition.onresult = function (event) {
 
     let reply;
 let targetUrl = null;
-
     if (
-        command.includes("halo") ||
-        command.includes("hai") ||
-        command.includes("hello")
-    ) {
-        reply = "Halo. JARVIS siap membantu.";
+    command.includes("apa kabar") ||
+    command.includes("bagaimana keadaanmu") ||
+    command.includes("kamu baik-baik saja")
+) {
+    reply = "Saya baik, Tuan. Semua sistem siap membantu. Bagaimana kabar Tuan hari ini?";
+} else if (
+    command.includes("perkenalkan dirimu") ||
+    command.includes("siapa kamu") ||
+    command.includes("siapa dirimu")
+) {
+    reply = "Perkenalkan, Tuan. Saya JARVIS, asisten virtual RHINOCEROS. Saya siap membantu Tuan mengakses dashboard, membaca ringkasan operasional, dan menyampaikan berita dunia.";
+} else if (
+    command.includes("halo") ||
+    command.includes("hai") ||
+    command.includes("hello")
+) {
+    reply = "Halo, Tuan. JARVIS siap membantu. Ada yang bisa saya kerjakan?";
+     
     } else if (
         command.includes("jam berapa") ||
         command.includes("waktu sekarang")
@@ -88,7 +100,7 @@ let targetUrl = null;
                 minute: "2-digit"
             }) +
             ".";
-
+    
 
 } else if (
     command.includes("buka dashboard sweeping") ||
@@ -115,7 +127,7 @@ let targetUrl = null;
     reply = "Dashboard utama sedang dibuka.";
     targetUrl = window.location.pathname.includes("/jarvis/")
     ? "../home.html"
-    : "./home.html";
+    : "./home.html";    
 } else if (
     command.includes("bacakan berita dunia") ||
     command.includes("ringkas berita internasional") ||
@@ -156,7 +168,7 @@ let targetUrl = null;
             : value;
     };
 
-
+    
 reply =
     "Ringkasan operasional RHINOCEROS. " +
 
@@ -228,7 +240,7 @@ reply =
         statusText.textContent = "BALASAN TEKS SIAP";
     }
 
-    micButton.textContent = "ðŸŽ™ Aktifkan Mikrofon";
+    micButton.textContent = "🎙 Aktifkan Mikrofon";
 };
 
     micButton.addEventListener("click", function () {
