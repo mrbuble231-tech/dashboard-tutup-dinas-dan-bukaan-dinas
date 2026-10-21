@@ -60,7 +60,7 @@ if (speechSupported) {
 
     
 
-recognition.onresult = function (event) {
+recognition.onresult = async function (event) {
     const said = event.results[0][0].transcript.trim();
     const command = said.toLowerCase();
 
@@ -71,12 +71,83 @@ recognition.onresult = function (event) {
 
     let reply;
 let targetUrl = null;
+
+async function ambilHumorOnline() {
+    try {
+        const respons = await fetch(
+            "https://official-joke-api.appspot.com/random_joke"
+        );
+
+        if (!respons.ok) {
+            throw new Error("API humor tidak tersedia");
+        }
+
+        const data = await respons.json();
+
+        if (!data.setup || !data.punchline) {
+            throw new Error("Data humor tidak lengkap");
+        }
+
+        const teksInggris = `${data.setup} ${data.punchline}`;
+
+        const urlTerjemahan =
+            "https://api.mymemory.translated.net/get?q=" +
+            encodeURIComponent(teksInggris) +
+            "&langpair=en%7Cid";
+
+        const hasilTerjemahan = await fetch(urlTerjemahan);
+
+        if (!hasilTerjemahan.ok) {
+            throw new Error("Terjemahan tidak tersedia");
+        }
+
+        const dataTerjemahan = await hasilTerjemahan.json();
+        const humorIndonesia =
+            dataTerjemahan.responseData?.translatedText;
+
+        if (
+            dataTerjemahan.responseStatus !== 200 ||
+            !humorIndonesia ||
+            humorIndonesia.trim() === "" ||
+            humorIndonesia.toLowerCase().includes("mymemory warning")
+        ) {
+            throw new Error("Hasil terjemahan tidak valid");
+        }
+
+        return humorIndonesia;
+    } catch (error) {
+        console.warn("JARVIS: Humor online gagal.", error);
+        return null;
+    }
+}
+const jarvisHumor = [
+    "Mengapa programmer suka malam hari, Tuan? Karena bug kadang baru kelihatan saat suasana tenang.",
+    "Tuan, komputer saya tidak pernah mengeluh. Paling-paling hanya memberi pesan error saat sedang banyak pikiran.",
+    "Motivasi hari ini, Tuan: kalau kode belum berhasil, jangan langsung menyerah. Periksa dulu, mungkin hanya kurang satu titik koma.",
+    "Saya tidak bisa minum kopi, Tuan. Tetapi kalau bisa, mungkin saya akan meminta satu cangkir setiap kali menemukan bug.",
+    "Tenang, Tuan. Masalah boleh datang bertubi-tubi, tetapi jangan sampai kita menyelesaikannya dengan menekan tombol hapus semua."
+];
+
     if (
-    command.includes("apa kabar") ||
-    command.includes("bagaimana keadaanmu") ||
-    command.includes("kamu baik-baik saja")
+        command.includes("hibur saya") ||
+        command.includes("ceritakan lelucon") ||
+        command.includes("humor") ||
+        command.includes("buat saya tertawa")
+    
 ) {
-    reply = "Saya baik, Tuan. Semua sistem siap membantu. Bagaimana kabar Tuan hari ini?";
+    reply = await ambilHumorOnline();
+
+    if (!reply) {
+        const index = Math.floor(Math.random() * jarvisHumor.length);
+        reply = jarvisHumor[index];
+    }
+} else if (
+    command.includes("apa kabar") ||
+
+        command.includes("bagaimana keadaanmu") ||
+        command.includes("kamu baik-baik saja")
+    ) {
+        reply = "Saya baik, Tuan. Semua sistem siap membantu. Bagaimana kabar Tuan hari ini?";
 } else if (
     command.includes("perkenalkan dirimu") ||
     command.includes("siapa kamu") ||
